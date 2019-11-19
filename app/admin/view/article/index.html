@@ -1,0 +1,408 @@
+{include file="public/page_header"}
+<link href="__PAGE__/global/plugins/editormd/css/editormd.css" rel="stylesheet" type="text/css" />
+<link href="__PAGE__/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css" rel="stylesheet" type="text/css" />
+<style>
+    .editormd-preview-close-btn {
+        display: none !important;
+    }
+    .bootstrap-tagsinput {
+        width:100% !important;
+    }
+</style>
+<body style="background: #eef1f5;">
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN THEME PANEL -->
+<div class="portlet light">
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box dark">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>文章列表
+                            <button class="btn  btn-sm btn-circle red btn-transparent btn-outline btn-add-article"><i class="fa fa-plus"></i> 新增文章</button>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th> No </th>
+                                    <th> 标题 </th>
+                                    <th> 分类 </th>
+                                    <th> 浏览量 </th>
+                                    <th> 推荐 </th>
+                                    <th> 热门 </th>
+                                    <th> 图片 </th>
+                                    <th> 发布 </th>
+                                    <th> 发布时间 </th>
+                                    <th> 更新时间 </th>
+                                    <th> 操作 </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="artRes" id="vo"}
+                                <tr>
+                                    <td> {$vo.id} </td>
+                                    <td title="{$vo.title}"> {$vo.title|msubstr=0,8} </td>
+                                    <td> {$vo.name} </td>
+                                    <td> {$vo.views}</td>
+                                    <td>
+                                        <span
+                                                data-id="{$vo.id}"
+                                                data-field="is_tui"
+                                                data-status="{$vo.is_tui}"
+                                                data-url="/change_tui_status"
+                                                class='btn btn-xs btn-circle
+                                                {if condition="$vo['is_tui'] eq 0"} dark
+                                        {else /}red
+                                        {/if} ch-status'>
+                                        {if condition="$vo['is_tui'] eq 0"}
+                                        <i class="fa fa-ban"></i>否
+                                        {else /}<i class="fa fa-check"></i>是
+                                        {/if}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span
+                                                data-id="{$vo.id}"
+                                                data-field="is_hot"
+                                                data-status="{$vo.is_hot}"
+                                                data-url="/change_hot_status"
+                                                class='btn btn-xs btn-circle
+                                                {if condition="$vo['is_hot'] eq 0"} dark
+                                        {else /}red
+                                        {/if} ch-status'>
+                                        {if condition="$vo['is_hot'] eq 0"}
+                                        <i class="fa fa-ban"></i>否
+                                        {else /}<i class="fa fa-check"></i>是
+                                        {/if}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span
+                                                data-id="{$vo.id}"
+                                                data-field="is_img"
+                                                data-status="{$vo.is_img}"
+                                                data-url="/change_img_status"
+                                                class='btn btn-xs btn-circle
+                                                {if condition="$vo['is_img'] eq 0"} dark
+                                        {else /}red
+                                        {/if} ch-status'>
+                                        {if condition="$vo['is_img'] eq 0"}
+                                        <i class="fa fa-ban"></i>否
+                                        {else /}<i class="fa fa-check"></i>是
+                                        {/if}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span
+                                                data-id="{$vo.id}"
+                                                data-field="is_pub"
+                                                data-status="{$vo.is_pub}"
+                                                data-url="/change_pub_status"
+                                                class='btn btn-xs btn-circle
+                                                {if condition="$vo['is_pub'] eq 0"} dark
+                                        {else /}red
+                                        {/if} ch-status'>
+                                        {if condition="$vo['is_pub'] eq 0"}
+                                        <i class="fa fa-ban"></i>否
+                                        {else /}<i class="fa fa-check"></i>是
+                                        {/if}
+                                        </span>
+                                    </td>
+                                    <td> {$vo.pub_time}</td>
+                                    <td> {$vo.update_time}</td>
+                                    <td>
+                                        <button title="修改"
+                                                class="btn btn-xs red btn-circle btn-transparent btn-outline item-edit"
+                                                onclick="editorArticle({$vo.id})"
+                                        >
+                                            <i class="fa fa-pencil"></i> 修改
+                                        </button>
+                                        <button title="删除"
+                                                class="btn btn-xs dark btn-circle btn-transparent btn-outline item-delete"
+                                                data-id="{$vo.id}"
+                                                data-url="/del_article"
+                                        >
+                                            <i class="fa fa-trash"></i> 删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                {/volist}
+                                <tr><td colspan="11">{$artRes->render()}</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页面模态框结构开始 -->
+    <div class="modal fade" id="md-edit-add-form" aria-hidden="true">
+    </div>
+    <!-- 页面模态框结构结束 -->
+    {include file="public/page_footer"}
+    <!-- 这里是js区域开始 -->
+  <script src="__PAGE__/global/plugins/editormd/editormd.js"></script>
+  <script src="__PAGE__/global/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+
+    <script>
+        //文章添加模态框调出事件
+        $('.btn-add-article').click(function(){
+            $.ajax({
+                type:'get',
+                dateType:'html',
+                url:'/add_article',
+                //sync:true,
+                success:function(dd){
+                   // console.log(dd);
+                    $('#md-edit-add-form').empty();
+                    $('#md-edit-add-form').append($(dd));
+                    var editor = editormd("test-editor", {
+                        height:'400px',
+                        syncScrolling : "single",
+                        emoji:true,
+                        //启动本地图片上传功能
+                        imageUpload: true,
+                        watch:true,
+                        imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        path   : "__PAGE__/global/plugins/editormd/lib/",
+                        imageUploadURL : "/uploadFile", //文件提交请求路径
+                        saveHTMLToTextarea : true, //注意3：这个配置，方便post提交表单
+                        previewTheme : "dark"
+                    });
+                    //设置标签显示
+                    setTags("#inp-tags");
+                    //设置图片显示
+                    //setImg();
+                    $('#md-edit-add-form').modal('show');
+                },
+                error:function(){
+                    wk.error('服务端错误！',2);
+                }
+            })
+
+        })
+
+        //表单提交验证函数
+        function validateForm()
+        {
+            var title = $('#inp-title').val();
+            var views = $('#inp-views').val();
+            var orderby = $('#inp-orderby').val();
+            var content = $('#inp-content').html();
+            if(title=='')
+            {
+                wk.error('文章标题不能为空');
+                $('#inp-title').focus();
+                return false;
+            }
+            if(!(/^\d+$/.test(views))){
+                wk.error('点击量必须是正整数');
+                $('#inp-views').focus();
+                return false;
+            }
+            if(!(/^\d+$/.test(orderby))){
+                wk.error('排序必须是正整数');
+                $('#inp-orderby').focus();
+                return false;
+            }
+            if(content=='')
+            {
+                wk.error('文章内容不能为空');
+                $('#inp-content').focus();
+                return false;
+            }
+        }
+
+        //文章提交保存事件
+        $('body').on('click','.btn-send-form',function(){
+            var data = $('#form_article_add').serialize();
+            //console.log(data);
+            var validate = validateForm();
+            if(validate==false)
+            {
+                return false;
+            }
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url:'/add_article',
+                data:data,
+                success:function(eve){
+                    if(eve.code==200)
+                    {
+                        $('#md-edit-add-form').modal('hide');
+                        wk.msg(eve.msg,'','确认');
+                        window.location.reload();
+                    }else
+                    {
+                        wk.error(eve.msg,1);
+                    }
+                },
+                error:function(){
+                    wk.error('服务请求失败',2)
+                }
+            })
+        })
+        //Tagsinput
+        function setTags(tag){
+           // console.log("jinfdsng");
+           var tagInp = $(tag);
+            tagInp.tagsinput({
+                maxTags: 3
+            })
+        }
+
+        //图片上传打开
+        function openUpLoad()
+        {
+            $("#file-hide-click").click();
+        }
+
+        //图片改变事件
+        function imgChange(e){
+            var filePath = $(e).val();//获取到input的value，里面是文件的路径
+                console.log(filePath);
+                fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
+                src = window.URL.createObjectURL(e.files[0]); //转成可以在本地预览的格式
+
+            // 检查是否是图片
+            if(!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                wk.error('图片格式不合法，只能是png,jpg,jpeg');
+                return;
+            }else{
+                var form_data = new FormData();
+//                console.log(form_data);
+//                console.log(e.files[0]);
+                form_data.append('img', e.files[0]); //append方法传入formData中
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    data:form_data,
+                    processData: false,//此条和下一条 用于屏蔽TypeError: 'append' called on an object that does not implement interface FormData
+                    contentType: false,//
+                    url:'/upLoadThumbImg',
+                    success:function(eve){
+                        if(eve.status==1)
+                        {
+                            $('#select-btn').find('a').empty();
+                            $('#select-btn').find('a').append($('<i class="fa fa-image"></i><span>重新选择</span>'));
+                            $('#file-hide-val').val(eve.url);//将inpt赋值为上传后的地址
+                            $('#prv-img').attr('src', eve.url);//显示预览图像
+                        }
+                    }
+
+                })
+
+            }
+        }
+
+        //更改文章状态事件函数//推荐、热门、图片、发布
+        $('body').on('click','.ch-status',function(){
+            //console.log($(this).data('id'));
+            var id = $(this).data('id');
+            var url = $(this).data('url');
+            var status = $(this).data('status');
+            var field = $(this).data('field');
+            var cls = 'red';
+            var i_html = '<i class="fa fa-check"></i>是';
+            if(status==1)
+            {
+                cls='dark';
+                i_html = '<i class="fa fa-ban"></i>否';
+            }
+            var spn_ht = $(this);
+            if(url!='')
+            {
+                $.ajax({
+                    url:url,
+                    type:'post',
+                    dataType:'json',
+                    data:{'id':id,'field':field,'status':status},
+
+                    success:function(eve){
+                        if(eve.code==200)
+                        {
+                            if(status==1)
+                            {
+                                $(spn_ht).removeClass('red').empty();
+                            }else {
+                                $(spn_ht).removeClass('dark').empty();
+                            }
+                            $(spn_ht).addClass(cls).append(i_html);
+                            wk.msg(eve.msg,'','确定');
+                            window.location.reload();
+                        }
+                    }
+                });
+            }
+        })
+
+        //文章修改
+        function editorArticle(id)
+        {
+            $.ajax({
+                type:'get',
+                dataType:'html',
+                url:'/add_article/'+id,
+                success:function(dd){
+                    // console.log(dd);
+                    $('#md-edit-add-form').empty();
+                    $('#md-edit-add-form').append($(dd));
+                    var editor = editormd("test-editor", {
+                        height:'400px',
+                        syncScrolling : "single",
+                        emoji:true,
+                        //启动本地图片上传功能
+                        imageUpload: true,
+                        watch:true,
+                        imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        path   : "__PAGE__/global/plugins/editormd/lib/",
+                        imageUploadURL : "/uploadFile", //文件提交请求路径
+
+                        saveHTMLToTextarea : true, //注意3：这个配置，方便post提交表单
+                        previewTheme : "dark",
+                    });
+                    //设置标签显示
+                    setTags("#inp-tags");
+                    //设置图片显示
+                    //setImg();
+                    $('#md-edit-add-form').modal('show');
+                }
+            });
+        }
+
+        //文章删除
+        $("body").on('click','.item-delete',function(){
+            var id = $(this).data('id');
+            var url = $(this).data('url');
+            var del_ele = $(this);
+            layer.confirm('确实要删除此信息吗？', {icon: 3, title:'提示'}, function(){
+                $.ajax({
+                    type:'post',
+                    url:url,
+                    dataType:'json',
+                    data:{'id':id},
+                    success:function(dd){
+                        if(dd.code==200){
+                            del_ele.parent().parent().remove();//清除当前行
+                            wk.success(dd.msg);
+                        }else {
+                            wk.success(dd.msg);
+                        }
+                    },
+                    error:function(){
+                        wk.error('服务端错误！')
+                    }
+                })
+            })
+        })
+    </script>
+    <!-- 这里是js区域结束 -->
+</body>
+
+</html>

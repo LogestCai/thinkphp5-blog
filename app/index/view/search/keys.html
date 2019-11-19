@@ -1,0 +1,128 @@
+{include file="public/headercss" /}
+<link href="__PAGE__/pages/css/swiper.min.css" rel="stylesheet" type="text/css" />
+<script src="__PAGE__/pages/scripts/swiper.min.js" type="text/javascript"></script>
+<style>
+    .footer-load-more{
+        width:100%;
+        margin:0 15px;
+        background: transparent;
+        text-align: center;
+    }
+
+</style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-boxed page-header-menu-fixed">
+<!-- 头部区域开始 -->
+{include file="public/header" /}
+<!-- 头部区域结束 -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <!-- BEGIN PAGE CONTENT BODY -->
+        <div class="page-content">
+            <div class="container">
+                <!-- 导航条开始 -->
+                <ul class="page-breadcrumb breadcrumb">
+                    <li>
+                        <a href="/">首页</a>
+                        <i class="fa fa-circle"></i>
+                    </li>
+
+                    <li>
+                        <span>搜索结果</span>
+                    </li>
+                </ul>
+                <!-- 导航条结束 -->
+                <!-- BEGIN PAGE CONTENT INNER -->
+                <div class="page-content-inner">
+                    <div class="blog-page blog-content-1">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {volist name="articles" id="vo"}
+                                        <div class="blog-post-lg bordered blog-container">
+                                            <div class="blog-post-content">
+                                                <h2 class="blog-title blog-post-title">
+                                                    <a href="/articles/{$vo.pub_time|strtotime|date='Y',###}/{$vo.pub_time|strtotime|date='m',###}/{$vo.pub_time|strtotime|date='d',###}/art-{$vo.id}.shtml">{$vo.title}</a>
+                                                </h2>
+                                                <p class="blog-post-desc"> {$vo.content|F_exceptHtmlTags=100}</p>
+                                                <div class="blog-post-foot">
+                                                    <ul class="blog-post-tags">
+                                                        <li class="uppercase">
+                                                            <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/{$vo.pub_time|strtotime|date='Y',###}/{$vo.pub_time|strtotime|date='m',###}/{$vo.pub_time|strtotime|date='d',###}/art-{$vo.id}.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                        </li>
+                                                        <?php
+                                                        if($vo['tags']!=='')
+                                                        {
+                                                           $rest = explode(',',$vo['tags']);
+                                                           foreach($rest as $vv){
+                                                             echo '<li class="uppercase">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">'.$vv.'</a></li>';}
+                                                        }?>
+
+                                                    </ul>
+                                                    <div class="blog-post-meta">
+                                                        <i class="icon-calendar font-blue"></i>
+                                                        <a href="javascript:;">{$vo.pub_time}</a>
+                                                    </div>
+                                                    <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/volist}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 blog-page blog-content-2">
+                                <div class="blog-single-sidebar bordered blog-container ">
+                                    <!--全文搜索开始 -->
+                                    {include file="public/search" /}
+                                    <!--全文搜索结束 -->
+                                    <!-- 最新文章开始 -->
+                                    {include file="public/sidebar_recent" /}
+                                    <!-- 最新文章结束 -->
+                                    <!-- 博客标签TAgs开始 -->
+                                    {include file="public/sidebar_tags" /}
+                                    <!-- 博客标签TAgs结束 -->
+                                    <!-- 热门文章开始 -->
+                                    {include file="public/sidebar_hot" /}
+                                    <!-- 热门文章结束 -->
+                                    <!-- 图片文章开始 -->
+                                    {include file="public/sidebar_img" /}
+                                    <!-- 图片文章结束 -->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT INNER -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT BODY -->
+        <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- FOOTER区域开始 -->
+{include file="public/footer" /}
+<!-- FOOTER区域结束  -->
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<!-- 手写js区域开始 -->
+
+<!-- 手写js区域结束 -->
+
+</body>
+
+</html>

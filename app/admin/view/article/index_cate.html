@@ -1,0 +1,246 @@
+{include file="public/page_header"}
+<link href="__PAGE__/global/plugins/editormd/css/editormd.css" rel="stylesheet" type="text/css" />
+<style>
+    .editormd-preview-close-btn {
+        display: none !important;
+    }
+</style>
+<body style="background: #eef1f5;">
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN THEME PANEL -->
+<div class="portlet light">
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box dark">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>文章分类
+                            <button class="btn  btn-sm btn-circle red btn-transparent btn-outline btn-add-category"><i class="fa fa-plus"></i> 新增分类</button>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th> No </th>
+                                    <th> 名称 </th>
+                                    <th> 排序 </th>
+                                    <th> 关键词 </th>
+                                    <th> 使用 </th>
+                                    <th> 操作 </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="cateRes" id="vo"}
+                                <tr>
+                                    <td> {$vo.id} </td>
+                                    <td> <?php if($vo['level']>0){echo str_repeat('|--',$vo['level']);}?> {$vo.name} </td>
+                                    <td> {$vo.orderby} </td>
+                                    <td> {$vo.keywords} </td>
+                                    <td>
+                                        <span
+                                                data-id="{$vo.id}"
+                                                data-field="status"
+                                                data-status="{$vo.status}"
+                                                data-url="/change_hot_status"
+                                                class='btn btn-xs btn-circle
+                                                {if condition="$vo['status'] eq 0"} dark
+                                        {else /}red
+                                        {/if} ch-status'>
+                                        {if condition="$vo['status'] eq 0"}
+                                        <i class="fa fa-ban"></i>否
+                                        {else /}<i class="fa fa-check"></i>是
+                                        {/if}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button title="修改"
+                                                class="btn btn-xs red btn-circle btn-transparent btn-outline item-edit"
+                                                onclick="editorCate({$vo.id})"
+                                                >
+                                            <i class="fa fa-pencil"></i> 修改
+                                        </button>
+                                        <button title="删除"
+                                                class="btn btn-xs dark btn-circle btn-transparent btn-outline item-delete"
+                                                data-id="{$vo.id}"
+                                                data-url="/del_cate">
+                                            <i class="fa fa-trash"></i> 删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页面模态框结构开始 -->
+    <div class="modal fade" id="md-edit-add-form" aria-hidden="true">
+
+    </div>
+    <!-- 页面模态框结构结束 -->
+    {include file="public/page_footer"}
+    <script src="__PAGE__/global/plugins/editormd/editormd.js"></script>
+    <!-- 这里是js区域开始 -->
+    <script>
+        //文章栏目添加模态框调出事件
+        $('.btn-add-category').click(function(){
+            $.ajax({
+                type:'get',
+                dateType:'html',
+                url:'/add_cate',
+                //sync:true,
+                success:function(dd){
+                    // console.log(dd);
+                    $('#md-edit-add-form').empty();
+                    $('#md-edit-add-form').append($(dd));
+                    var editor = editormd("test-editor", {
+                        height:'250px',
+                        syncScrolling : "single",
+                        emoji:true,
+                        //启动本地图片上传功能
+                        imageUpload: true,
+                        watch:true,
+                        imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        path   : "__PAGE__/global/plugins/editormd/lib/",
+                        imageUploadURL : "/uploadFile", //文件提交请求路径
+
+                        saveHTMLToTextarea : true //注意3：这个配置，方便post提交表单
+                    });
+                    //设置标签显示
+                   // setTags("#inp-tags");
+                    //设置图片显示
+                    //setImg();
+                    $('#md-edit-add-form').modal('show');
+                },
+                error:function(){
+                    wk.error('服务端错误！',2);
+                }
+            })
+
+        })
+
+        //表单提交验证函数
+        function validateForm()
+        {
+            var title = $('#inp-name').val();
+            var views = $('#inp-views').val();
+            var orderby = $('#inp-orderby').val();
+            if(title=='')
+            {
+                wk.error('栏目名称不能为空');
+                $('#inp-name').focus();
+                return false;
+            }
+            if(!(/^\d+$/.test(views))){
+                wk.error('点击量必须是正整数');
+                $('#inp-views').focus();
+                return false;
+            }
+            if(!(/^\d+$/.test(orderby))){
+                wk.error('排序必须是正整数');
+                $('#inp-orderby').focus();
+                return false;
+            }
+        }
+
+        //文章提交保存事件
+        $('body').on('click','.btn-send-form',function(){
+            var data = $('#form_article_add').serialize();
+            //console.log(data);
+            var validate = validateForm();
+            if(validate==false)
+            {
+                return false;
+            }
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url:'/add_cate',
+                data:data,
+                success:function(eve){
+                    if(eve.code==200)
+                    {
+                        $('#md-edit-add-form').modal('hide');
+                        wk.msg(eve.msg,'','确认');
+                        window.location.reload();
+                    }else
+                    {
+                        wk.error(eve.msg,1);
+                    }
+                },
+                error:function(){
+                    wk.error('服务请求失败',2)
+                }
+            })
+        })
+
+
+        //栏目修改
+        function editorCate(id)
+        {
+            $.ajax({
+                type:'get',
+                dataType:'html',
+                url:'/add_cate/'+id,
+                success:function(dd){
+                    // console.log(dd);
+                    $('#md-edit-add-form').empty();
+                    $('#md-edit-add-form').append($(dd));
+                    var editor = editormd("test-editor", {
+                        height:'250px',
+                        syncScrolling : "single",
+                        emoji:true,
+                        //启动本地图片上传功能
+                        imageUpload: true,
+                        watch:true,
+                        imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                        path   : "__PAGE__/global/plugins/editormd/lib/",
+                        imageUploadURL : "/uploadFile", //文件提交请求路径
+
+                        saveHTMLToTextarea : true //注意3：这个配置，方便post提交表单
+                    });
+                    //设置标签显示
+                    //setTags("#inp-tags");
+                    //设置图片显示
+                    //setImg();
+                    $('#md-edit-add-form').modal('show');
+                }
+            });
+        }
+
+        //文章删除
+        $("body").on('click','.item-delete',function(){
+            var id = $(this).data('id');
+            var url = $(this).data('url');
+            var del_ele = $(this);
+            layer.confirm('确实要删除此信息吗？', {icon: 3, title:'提示'}, function(){
+                $.ajax({
+                    type:'post',
+                    url:url,
+                    dataType:'json',
+                    data:{'id':id},
+                    success:function(dd){
+                        if(dd.code==200){
+                            del_ele.parent().parent().remove();//清除当前行
+                            wk.success(dd.msg);
+                        }else {
+                            wk.success('删除失败！');
+                        }
+                    },
+                    error:function(){
+                        wk.error('服务端错误！')
+                    }
+                })
+            })
+        })
+    </script>
+    <!-- 这里是js区域结束 -->
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+<div class="blog-single-sidebar-ui">
+    <h3 class="blog-sidebar-title uppercase">图片文章</h3>
+    <div class="row ui-margin">
+        {volist name="imgArt" id="vo" length="6"}
+        <div class="col-xs-4 ui-padding" >
+            <a href="/articles/{$vo.for_year}/{$vo.for_month}/{$vo.for_day}/art-{$vo.id}.shtml">
+                <img  src="{$vo.photo}" />
+            </a>
+        </div>
+        {/volist}
+
+    </div>
+</div>

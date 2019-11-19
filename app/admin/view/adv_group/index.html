@@ -1,0 +1,62 @@
+<style>
+    .tr-sel
+    {
+         background-color: #b9435c !important;
+    }
+</style>
+<div class="modal-dialog basic">
+    <div class="modal-content">
+        <div id="md-title" class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">广告分组添加</h4>
+        </div>
+        <div id="md-body" class="modal-body">
+            <!-- BEGIN FORM-->
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th colspan="3">
+                            <div class="form-group">
+                            <div class="col-md-4">
+                                <input type="hidden" id="inp-group-id" value="">
+                                <input type="text" id="inp-group-name" class="form-control col-md-4" name="name" value="" placeholder="请输入分组名称">
+                            </div>
+                            </label>
+                            <div class="col-md-4">
+                                <span data-url="/adv_group_add" class="btn btn-sm btn-circle red btn-group-save" >提 交</span>
+                                <span class="btn btn-sm btn-circle blue btn-group-reset" >重 置</span>
+                            </div>
+                        </div>
+                        </th>
+                    </tr>
+                    <tr id="tab-header-row">
+                        <th> No </th>
+                        <th> 名称 </th>
+                        <th> 操作 </th>
+                    </tr>
+                    </thead>
+                    <tbody id="tb-body">
+                    {volist name="resData" id="vo"}
+                    <tr id="tr-{$vo.id}" class="edit-change" data-id="{$vo.id}" data-name="{$vo.name}">
+                        <td><i id="ico-{$vo.id}" class="fa fa-star-o"></i> {$vo.id} </td>
+                        <td id="inp-name-{$vo.id}"  title="{$vo.name}"> {$vo.name|msubstr=0,10} </td>
+                        <td>
+                            <button title="删除"
+                                    class="btn btn-xs dark btn-circle btn-transparent btn-outline item-delete"
+                                    data-id="{$vo.id}"
+                                    data-url="/adv_group_del"
+                            >
+                                <i class="fa fa-trash"></i> 删除
+                            </button>
+                        </td>
+                    </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+            </div>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>
+

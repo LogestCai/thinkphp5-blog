@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+    <meta charset="utf-8" />
+    <title>IT界-青草根,青草根博客,程序员技术博客,it技术交流-IT界青草根</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="IT界-青草根,青草根博客,程序员技术博客,it技术交流-IT界青草根" name="description" />
+    <meta content="青草根博客,php技术博客,it技术分享,程序开发资源分享" name="keywords" />
+    <meta content="IT界-青草根" name="author" />
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="/statics/metro/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/statics/metro/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/statics/metro/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/statics/metro/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css" />
+    <link href="/statics/metro/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN THEME GLOBAL STYLES -->
+    <link href="/statics/metro/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
+    <link href="/statics/metro/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME GLOBAL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="/statics/metro/pages/css/blog.css" rel="stylesheet" type="text/css" />
+    <!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN THEME LAYOUT STYLES -->
+    <link href="/statics/metro/layouts/layout3/css/layout.min.css" rel="stylesheet" type="text/css" />
+    <link href="/statics/metro/layouts/layout3/css/themes/default.min.css" rel="stylesheet" type="text/css" id="style_color" />
+    <link href="/statics/metro/layouts/layout3/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/static/admin/js/layui/css/layui.css">
+    <!-- END THEME LAYOUT STYLES -->
+    <script src="/statics/metro/global/plugins/jquery.min.js" type="text/javascript"></script>
+    <script src="/statics/metro/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/static/admin/js/layui/layui.all.js"></script>
+
+    <script src="/static/admin/js/wk.js"></script>
+    <link rel="shortcut icon" href="favicon.ico" />
+<link href="/statics/metro/pages/css/swiper.min.css" rel="stylesheet" type="text/css" />
+<script src="/statics/metro/pages/scripts/swiper.min.js" type="text/javascript"></script>
+<style>
+    .footer-load-more {
+        width: 100%;
+        margin: 0 15px 15px 15px;
+        background: transparent;
+        text-align: center;
+    }
+    
+    img {
+        width: 100% !important;
+    }
+</style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-boxed page-header-menu-fixed">
+    <!-- 头部区域开始 -->
+    <!-- BEGIN HEADER -->
+<style>
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+    }
+    
+    @keyframes caret {
+        100% {
+            border-color: transparent;
+        }
+    }
+    
+    .move-p {
+        cursor: hand;
+        float: left;
+        display: block;
+        height: 75px;
+        line-height: 75px;
+        font-size: 22px;
+        color: #24270f;
+        width: 600px;
+        overflow: hidden;
+        // white-space: nowrap;
+        //border-right: 0.1em solid;
+        animation: typing 18s steps(20), caret 0.2s steps(1) infinite;
+    }
+    
+    .text-show {
+        color: #369;
+        font-weight: bold;
+        text-shadow: 0 0 1px currentColor, 1px 1px 1px #000, 2px 2px 3px #000;
+    }
+    
+    .page-logo-h {
+        line-height: 75px;
+    }
+    
+    .text-show:after {
+        content: 'Erode';
+        color: #fff;
+        text-shadow: 0 0 1px #fff;
+        -webkit-filter: url(#erode2);
+        filter: url(#erode2)
+    }
+</style>
+<div class="page-header">
+    <!-- BEGIN HEADER TOP -->
+    <div class="page-header-top">
+        <div class="container">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo ">
+                <a href="index.html" style="text-decoration: none">
+                    <h2 class="page-logo-h">IT界-青草根</h2>
+                </a>
+            </div>
+            <div class="hidden-xs move-p text-show" title="单击屏蔽此内容">
+                NEVER TOO OLD TO LEARN!
+            </div>
+            <!-- END LOGO -->
+
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler"></a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <li class="hidden-xs hidden-sm" id="header_notification_bar">
+                        <a id="header-clock" href=""></a>
+                    </li>
+                    <!-- END NOTIFICATION DROPDOWN -->
+
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+    </div>
+    <!-- END HEADER TOP -->
+    <!-- BEGIN HEADER MENU -->
+    <div class="page-header-menu">
+        <div class="container">
+            <!-- BEGIN MEGA MENU -->
+            <div class="hor-menu  ">
+                <ul class="nav navbar-nav">
+                    <li class=" ">
+                        <a href="/" class="nav-link  ">
+                            首页
+                        </a>
+                    </li>
+                                        <li class="menu-dropdown classic-menu-dropdown " >
+                        <a href="/artlist-1.shtml"> 程序开发<span class="arrow"></span>                        </a>                         <ul class="dropdown-menu pull-left">
+                                                        <li class=" ">
+                                <a href="/artlist-7.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> PHP                                </a>
+                            </li>
+                                                        <li class=" ">
+                                <a href="/artlist-8.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> HTML                                </a>
+                            </li>
+                                                        <li class=" ">
+                                <a href="/artlist-9.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> JS                                </a>
+                            </li>
+                                                    </ul>
+                                            </li>
+                                        <li class="menu-dropdown classic-menu-dropdown " >
+                        <a href="/artlist-2.shtml"> 操作系统<span class="arrow"></span>                        </a>                         <ul class="dropdown-menu pull-left">
+                                                        <li class=" ">
+                                <a href="/artlist-10.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> Linux                                </a>
+                            </li>
+                                                        <li class=" ">
+                                <a href="/artlist-11.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> Windows                                </a>
+                            </li>
+                                                    </ul>
+                                            </li>
+                                        <li class="menu-dropdown classic-menu-dropdown " >
+                        <a href="/artlist-3.shtml"> 数据库<span class="arrow"></span>                        </a>                         <ul class="dropdown-menu pull-left">
+                                                        <li class=" ">
+                                <a href="/artlist-12.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> MSSQL                                </a>
+                            </li>
+                                                        <li class=" ">
+                                <a href="/artlist-13.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> MYSQL                                </a>
+                            </li>
+                                                        <li class=" ">
+                                <a href="/artlist-14.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> ORACLE                                </a>
+                            </li>
+                                                    </ul>
+                                            </li>
+                                        <li >
+                        <a href="/artlist-4.shtml"> 安全架构                        </a>                     </li>
+                                        <li >
+                        <a href="/artlist-5.shtml"> 资源分享                        </a>                     </li>
+                                        <li >
+                        <a href="/artlist-6.shtml"> 关于作者                        </a>                     </li>
+                    
+                </ul>
+            </div>
+            <!-- END MEGA MENU -->
+        </div>
+    </div>
+    <!-- END HEADER MENU -->
+</div>
+<!-- END HEADER -->
+<script>
+    $(".text-show").click(function() {
+        $(this).empty();
+    });
+
+    //=========定义显示时间功能结束===================
+    function clock() {
+        var time = new Date().toLocaleString();
+        var htm = '<i class="fa fa-clock-o"></i>' + time;
+        $('#header-clock').html(htm);
+    }
+    setInterval("clock()", 1000);
+</script>
+    <!-- 头部区域结束 -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <!-- BEGIN PAGE CONTENT BODY -->
+            <div class="page-content">
+                <div class="container">
+                    <!-- 导航条开始 -->
+
+                    <!-- 导航条结束 -->
+                    <!-- BEGIN PAGE CONTENT INNER -->
+                    <div class="page-content-inner">
+                        <div class="blog-page blog-content-1">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-12 margin-bottom-20">
+
+                                            <div class="swiper-container" id="ban">
+                                                <div class="swiper-wrapper">
+                                                                                                        <div class="swiper-slide">
+                                                        <a href="http://www.baidu.com"><img src="/uploads/images/20191108\41f5a75a5fc1d44fa3292c3f26488b3d.jpg" alt="首页轮播图3" /></a>
+                                                    </div>
+                                                                                                        <div class="swiper-slide">
+                                                        <a href="http://www.baidu.com"><img src="/uploads/images/20191108\fb2d226499fc512863a9d419b425619d.jpg" alt="首页轮播图2" /></a>
+                                                    </div>
+                                                                                                        <div class="swiper-slide">
+                                                        <a href="http://www.baidu.com"><img src="/uploads/images/20191108\27f2ae7afde63a5aa01ba5b925d694cf.jpg" alt="首页轮播图1" /></a>
+                                                    </div>
+                                                                                                    </div>
+                                                <!-- Add Pagination -->
+                                                <div class="swiper-pagination"></div>
+
+
+                                                <!-- 如果需要滚动条 -->
+                                                <div class="swiper-scrollbar"></div>
+                                            </div>
+
+                                            <script>
+                                                var swiper = new Swiper('#ban', {
+                                                    pagination: '.swiper-pagination', //pagination分页器
+                                                    nextButton: '.swiper-button-next', //前进后退按钮
+                                                    prevButton: '.swiper-button-prev',
+                                                    paginationClickable: true, //参数设置为true时，点击分页器的指示点分页器会控制Swiper切换
+                                                    spaceBetween: 30, //slide之间的距离（单位px）。
+                                                    centeredSlides: true, //设定为true时，活动块会居中，而不是默认状态下的居左。
+                                                    loop: true, //复制多份循环(这里就是让轮播看起来是循环的，去掉这个就恢复了默认的swiper轮播)
+                                                    autoplay: 4000, //自动切换的时间间隔（单位ms），不设定该参数slide不会自动切换。
+                                                    autoplayDisableOnInteraction: true //点击后打断auto-play
+                                                });
+
+                                                $('#ban').mouseenter(function() {
+                                                    swiper.stopAutoplay();
+                                                })
+                                                $('#ban').mouseleave(function() {
+                                                    swiper.startAutoplay();
+                                                })
+                                            </script>
+
+                                        </div>
+                                        <div class="col-lg-12">
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/19/art-117.shtml">VIM好</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> 
+ vi的基本概念
+
+基本上vi可以分为三种状态，分别是命令模式（command mode）插入模式（Insert mode）底行模式（last line mode）1) 命令行模式comman...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/19/art-117.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-19 14:46:39</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/19/art-113.shtml">的市场成熟度</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> 
+ vi的基本概念
+
+基本上vi可以分为三种状态，分别是命令模式（command mode）插入模式（Insert mode）底行模式（last line mode）1) 命令行模式comman...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/19/art-113.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-19 14:45:24</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/05/art-122.shtml">没有一次情况设置</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> fdsfsdfdsfdsfdfdsfsdfdsfdsResponse基类提供了data方法用于设置响应数据。response()-&gt;data($data);json()-&gt;data($da...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/05/art-122.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            <li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">nihao</a></li><li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">woshi</a></li><li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">佛挡杀佛</a></li>
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-05 11:09:54</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/05/art-121.shtml">这是测试的情况</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> fdsfsdfdsfdsfdfdsfsdfdsfds没有人能够
+</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/05/art-121.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            <li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">nihao</a></li><li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">woshi</a></li>
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-05 11:08:53</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/04/art-106.shtml">VIM编辑器使用命令</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> 
+ vi的基本概念
+
+基本上vi可以分为三种状态，分别是命令模式（command mode）插入模式（Insert mode）底行模式（last line mode）1) 命令行模式comman...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/04/art-106.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            <li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">LINUX</a></li>
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-04 13:07:46</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/04/art-111.shtml">撒大声地多所</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> 
+ vi的基本概念
+
+基本上vi可以分为三种状态，分别是命令模式（command mode）插入模式（Insert mode）底行模式（last line mode）1) 命令行模式comman...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/04/art-111.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-04 13:02:59</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/04/art-110.shtml">git使用说明</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> 
+创建git资源库 git init —bare 库名称
+在用户文件夹下把资源clone下来 git clone &lt;仓库目录&gt; /g/software/repository/git/i...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/04/art-110.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            <li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">GIT</a></li><li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">版本控制</a></li>
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-04 13:02:22</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <div class="blog-post-lg bordered blog-container">
+                                                <div class="blog-post-content">
+                                                    <h2 class="blog-title blog-post-title">
+                                                        <a href="/articles/2019/11/04/art-112.shtml">这是有一个文章了</a>
+                                                    </h2>
+                                                    <p class="blog-post-desc"> 
+ vi的基本概念
+
+基本上vi可以分为三种状态，分别是命令模式（command mode）插入模式（Insert mode）底行模式（last line mode）1) 命令行模式comman...</p>
+                                                    <div class="blog-post-foot">
+                                                        <ul class="blog-post-tags">
+                                                            <li class="uppercase">
+                                                                <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/2019/11/04/art-112.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                            </li>
+                                                            <li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">windows</a></li>
+                                                        </ul>
+                                                        <div class="blog-post-meta hidden-xs">
+                                                            <i class="icon-calendar font-blue"></i>
+                                                            <a href="javascript:;">2019-11-04 12:44:54</a>
+                                                        </div>
+                                                        <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                                                                        <!-- 底部加载更改多开始 -->
+                                                                                        <div class="footer-load-more">
+                                                <button data-page="2" class="btn red btn-circle btn-load-more">
+                                                        加载更多...
+                                               </button>
+                                            </div>
+                                                                                        <!-- 底部加载更改多技术 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 blog-page blog-content-2">
+                                    <div class="blog-single-sidebar bordered blog-container ">
+                                        <!--全文搜索开始 -->
+                                        <div class="blog-single-sidebar-search">
+    <div class="input-icon right">
+        <i class="icon-magnifier"></i>
+        <form action="/search/keys" method="post">
+            <input type="text" name="key" class="form-control" placeholder="按回车键提交搜索..">
+            <button type="submit" style="display: none;"></button>
+        </form>
+    </div>
+</div>
+                                        <!--全文搜索结束 -->
+                                        <!-- 最新文章开始 -->
+                                        <div class="blog-single-sidebar-recent">
+    <h3 class="blog-sidebar-title uppercase">最新文章</h3>
+    <ul>
+                <li>
+            <a title="VIM好" href="/articles/2019/11/19/art-117.shtml">VIM好 </a>
+        </li>
+                <li>
+            <a title="的市场成熟度" href="/articles/2019/11/19/art-113.shtml">的市场成熟度 </a>
+        </li>
+                <li>
+            <a title="没有一次情况设置" href="/articles/2019/11/05/art-122.shtml">没有一次情况设置 </a>
+        </li>
+                <li>
+            <a title="这是测试的情况" href="/articles/2019/11/05/art-121.shtml">这是测试的情况 </a>
+        </li>
+                <li>
+            <a title="VIM编辑器使用命令" href="/articles/2019/11/04/art-106.shtml">VIM编辑器使用命令 </a>
+        </li>
+                <li>
+            <a title="撒大声地多所" href="/articles/2019/11/04/art-111.shtml">撒大声地多所 </a>
+        </li>
+            </ul>
+</div>
+                                        <!-- 最新文章结束 -->
+                                        <!-- 博客标签TAgs开始 -->
+                                        <div class="blog-single-sidebar-tags">
+    <h3 class="blog-sidebar-title uppercase">Tags</h3>
+    <ul class="blog-post-tags">
+                <li class="uppercase">
+            <a href="/search/tag/nihao">nihao</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/woshi">woshi</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6">版本控制</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/%E4%BD%A0%E5%A5%BD">你好</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/LINUX">LINUX</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/windows">windows</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/%E4%BD%9B%E6%8C%A1%E6%9D%80%E4%BD%9B">佛挡杀佛</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/GIT">GIT</a>
+        </li>
+                <li class="uppercase">
+            <a href="/search/tag/mysql">mysql</a>
+        </li>
+            </ul>
+</div>
+                                        <!-- 博客标签TAgs结束 -->
+                                        <!-- 热门文章开始 -->
+                                        <div class="blog-single-sidebar-links">
+    <h3 class="blog-sidebar-title uppercase">热门文章</h3>
+    <ul>
+                <li>
+            <a title="没有一次情况设置" href="/articles/2019/11/05/art-122.shtml">没有一次情况设置 </a>
+        </li>
+                <li>
+            <a title="测试一个系统" href="/articles/2019/11/04/art-120.shtml">测试一个系统 </a>
+        </li>
+                <li>
+            <a title="这是测试的情况" href="/articles/2019/11/05/art-121.shtml">这是测试的情况 </a>
+        </li>
+                <li>
+            <a title="的市场成熟度" href="/articles/2019/11/19/art-113.shtml">的市场成熟度 </a>
+        </li>
+                <li>
+            <a title="VIM编辑器使用命令" href="/articles/2019/11/04/art-106.shtml">VIM编辑器使用命令 </a>
+        </li>
+                <li>
+            <a title="git使用说明" href="/articles/2019/11/04/art-110.shtml">git使用说明 </a>
+        </li>
+        
+    </ul>
+</div>
+                                        <!-- 热门文章结束 -->
+                                        <!-- 图片文章开始 -->
+                                        <div class="blog-single-sidebar-ui">
+    <h3 class="blog-sidebar-title uppercase">图片文章</h3>
+    <div class="row ui-margin">
+                <div class="col-xs-4 ui-padding" >
+            <a href="/articles/2019/11/19/art-117.shtml">
+                <img  src="/uploads/images/20191119\d35ee01b299c1c6c2224fc1a3bb54b36.jpg" />
+            </a>
+        </div>
+                <div class="col-xs-4 ui-padding" >
+            <a href="/articles/2019/11/19/art-113.shtml">
+                <img  src="/uploads/images/20191119\5ea671a323dac72155ce2ad8818f0a84.jpg" />
+            </a>
+        </div>
+                <div class="col-xs-4 ui-padding" >
+            <a href="/articles/2019/11/05/art-122.shtml">
+                <img  src="/uploads/images/20191119\d1b782aafda01b38601bd4de9821c00f.jpg" />
+            </a>
+        </div>
+                <div class="col-xs-4 ui-padding" >
+            <a href="/articles/2019/11/05/art-121.shtml">
+                <img  src="/uploads/images/20191119\1d6d12ced99bccc629cde712531ab425.jpg" />
+            </a>
+        </div>
+                <div class="col-xs-4 ui-padding" >
+            <a href="/articles/2019/11/04/art-106.shtml">
+                <img  src="/uploads/images/20191119\6fd9dee544109c8c87659da126ee0b8b.jpg" />
+            </a>
+        </div>
+                <div class="col-xs-4 ui-padding" >
+            <a href="/articles/2019/11/04/art-111.shtml">
+                <img  src="/uploads/images/20191119\09a5cecec5905657541367ba49de8045.jpg" />
+            </a>
+        </div>
+        
+    </div>
+</div>
+                                        <!-- 图片文章结束 -->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT INNER -->
+                </div>
+            </div>
+            <!-- END PAGE CONTENT BODY -->
+            <!-- END CONTENT BODY -->
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- FOOTER区域开始 -->
+    <!-- BEGIN PRE-FOOTER -->
+<style>
+    .pull-center{
+        text-align: center;
+    }
+</style>
+<div class="page-prefooter">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12 footer-block">
+                <h2>关于博主</h2>
+                <p> 拼命奋斗的小家伙，不怕跌倒，不怕风雨。<br>开源软件爱好者、爱学习、健身达人、六块腹肌、不丑。 </p>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs12 footer-block">
+                <h2>订阅消息</h2>
+                <div class="subscribe-form">
+                    <form action="javascript:;">
+                        <div class="input-group">
+                            <input type="text" placeholder="mail@email.com" class="form-control">
+                            <span class="input-group-btn">
+                                  <button class="btn" type="submit">提 交</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 footer-block">
+                <h2>关注我</h2>
+                <ul class="social-icons">
+                    <li>
+                        <a href="https://github.com/LogestCai" data-original-title="github" title="GITHUB" class="github"></a>
+                    </li> 
+                </ul>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12 footer-block">
+                <h2>联系我</h2>
+                <address class="margin-bottom-40">
+                    <br> Email:caimh0223@qq.com
+                    <br> 微信号:caimh0223
+                </address>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PRE-FOOTER -->
+<!-- BEGIN INNER FOOTER -->
+<div class="page-footer">
+    <div class="container pull-center"> 2018 &copy; 青草根博客
+        <a href="#"> 皖ICP备16005452号-2</a>
+        <span style="display:inline-block;width:50px"><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278205960'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278205960%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script></span>
+
+    </div>
+</div>
+<div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+</div>
+<!-- END INNER FOOTER -->
+<!-- END FOOTER -->
+<!--[if lt IE 9]>
+<script src="/statics/metro/global/plugins/respond.min.js"></script>
+<script src="/statics/metro/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<!-- BEGIN CORE PLUGINS -->
+
+<script src="/statics/metro/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script src="/statics/metro/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/statics/metro/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/statics/metro/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/statics/metro/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN THEME GLOBAL SCRIPTS -->
+<script src="/statics/metro/global/scripts/app.min.js" type="text/javascript"></script>
+<!-- END THEME GLOBAL SCRIPTS -->
+<!-- BEGIN THEME LAYOUT SCRIPTS -->
+<script src="/statics/metro/layouts/layout3/scripts/layout.min.js" type="text/javascript"></script>
+<script src="/statics/metro/layouts/layout3/scripts/demo.min.js" type="text/javascript"></script>
+<script src="/statics/metro/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+    <!-- FOOTER区域结束  -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+
+    <!-- 手写js区域开始 -->
+    <script>
+        var parNumber = "8";
+        //加载更多选项设置
+        $('.btn-load-more').click(function() {
+            var page = $(this).data('page');
+            $(this).empty().html('加载中...');
+            var ele_btn = $(this);
+            $.ajax({
+                type: 'post',
+                dateType: 'json',
+                data: {
+                    'pages': page
+                },
+                url: '/getpage',
+                success: function(dd) {
+                    if (dd.code == 200) {
+                        var htm = createHtml(dd.data);
+                        console.log(htm);
+                        ele_btn.parent().before(htm);
+                        if (dd.data.length < parNumber) {
+                            ele_btn.attr('disabled', true);
+                            ele_btn.removeClass('red');
+                            ele_btn.addClass('default');
+                            ele_btn.html('我是有底线的...');
+                        } else {
+                            ele_btn.data('page', page + 1);
+                            ele_btn.html('加载更多...');
+                        }
+                    }
+                },
+                error: function() {
+                    wk.error('我没想到的错误出现了！真抱歉！');
+                }
+            });
+        });
+
+        //生成html
+        function createHtml(data) {
+            var htm = '';
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    htm += '<div class="blog-post-lg bordered blog-container">\
+                    <div class="blog-post-content">\
+                <h2 class="blog-title blog-post-title">\
+                <a href="/articles/' + data[i].for_year + '/' + data[i].for_month + '/' + data[i].for_day + '/art-' + data[i].id + '.shtml">' + data[i].title + '</a>\
+            </h2>\
+            <p class="blog-post-desc"> ' + subMbStrWithoutHtmlTags(data[i].content) + '</p>\
+            <div class="blog-post-foot">\
+                <ul class="blog-post-tags">\
+                <li class="uppercase">\
+                 <a style="background-color:#e7505a;color: #c2ffe3"\
+        class="btn  btn-success red" href="/articles/' + data[i].for_year + '/' + data[i].for_month + '/' + data[i].for_day + '/art-' + data[i].id + '.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>\
+                </li>';
+                    var tags = data[i].tags;
+                    var tmp_li = '';
+                    if ((tags != undefined) && (tags != '')) {
+                        tags = tags.split(',');
+
+
+                        for (var j = 0; j < tags.length; j++) {
+                            tmp_li += '<li class="uppercase"><a class="btn  btn-circle btn-transparent" href="javascript:;">' + tags[j] + '</a></li>';
+
+                        }
+                    }
+                    htm = htm + tmp_li;
+                    htm += '</ul>\
+                <div class="blog-post-meta">\
+                <i class="icon-calendar font-blue"></i>\
+                <a href="javascript:;">' + data[i].pub_time + '</a>\
+            </div>\
+            <!--div class="blog-post-meta">\
+                <i class="icon-bubble font-blue"></i>\
+                <a href="javascript:;">14 Comments</a>\
+            </div-->\
+            </div>\
+            </div>\
+            </div>';
+                }
+            }
+            return htm;
+        };
+        //清除html标签 并截取指定长度字符串
+        function subMbStrWithoutHtmlTags(str, length = 100) {
+            var temp = str.replace(/<\/?.+?>/g, "");
+            var result = temp.replace(/ /g, ""); //result为得到后的内容
+            return cutStr(result, length);
+        }
+
+        /**
+         * js截取字符串，中英文都能用
+         * @param str：需要截取的字符串
+         * @param len: 需要截取的长度
+         */
+        function cutStr(str, len) {
+            var str_length = 0;
+            var str_len = 0;
+            str_cut = new String();
+            str_len = str.length;
+            for (var i = 0; i < str_len; i++) {
+                a = str.charAt(i);
+                str_length++;
+                if (escape(a).length > 4) {
+                    //中文字符的长度经编码之后大于4
+                    str_length++;
+                }
+                str_cut = str_cut.concat(a);
+                if (str_length >= len) {
+                    str_cut = str_cut.concat("...");
+                    return str_cut;
+                }
+            }
+            //如果给定字符串小于指定长度，则返回源字符串；
+            if (str_length < len) {
+                return str;
+            }
+        }
+    </script>
+
+    <!-- 手写js区域结束 -->
+
+</body>
+
+</html>

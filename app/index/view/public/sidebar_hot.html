@@ -1,0 +1,11 @@
+<div class="blog-single-sidebar-links">
+    <h3 class="blog-sidebar-title uppercase">热门文章</h3>
+    <ul>
+        {volist name="hotArt" id="vo" length="6"}
+        <li>
+            <a title="{$vo.title}" href="/articles/{$vo.pub_time|strtotime|date='Y',###}/{$vo.pub_time|strtotime|date='m',###}/{$vo.pub_time|strtotime|date='d',###}/art-{$vo.id}.shtml">{$vo.title|msubstr=0,10} </a>
+        </li>
+        {/volist}
+
+    </ul>
+</div>

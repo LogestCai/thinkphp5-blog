@@ -1,0 +1,130 @@
+<!-- BEGIN HEADER -->
+<style>
+    @keyframes typing {
+        from {
+            width: 0;
+        }
+    }
+    
+    @keyframes caret {
+        100% {
+            border-color: transparent;
+        }
+    }
+    
+    .move-p {
+        cursor: hand;
+        float: left;
+        display: block;
+        height: 75px;
+        line-height: 75px;
+        font-size: 22px;
+        color: #24270f;
+        width: 600px;
+        overflow: hidden;
+        // white-space: nowrap;
+        //border-right: 0.1em solid;
+        animation: typing 18s steps(20), caret 0.2s steps(1) infinite;
+    }
+    
+    .text-show {
+        color: #369;
+        font-weight: bold;
+        text-shadow: 0 0 1px currentColor, 1px 1px 1px #000, 2px 2px 3px #000;
+    }
+    
+    .page-logo-h {
+        line-height: 75px;
+    }
+    
+    .text-show:after {
+        content: 'Erode';
+        color: #fff;
+        text-shadow: 0 0 1px #fff;
+        -webkit-filter: url(#erode2);
+        filter: url(#erode2)
+    }
+</style>
+<div class="page-header">
+    <!-- BEGIN HEADER TOP -->
+    <div class="page-header-top">
+        <div class="container">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo ">
+                <a href="index.html" style="text-decoration: none">
+                    <h2 class="page-logo-h">IT界-青草根</h2>
+                </a>
+            </div>
+            <div class="hidden-xs move-p text-show" title="单击屏蔽此内容">
+                NEVER TOO OLD TO LEARN!
+            </div>
+            <!-- END LOGO -->
+
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler"></a>
+            <!-- END RESPONSIVE MENU TOGGLER -->
+            <!-- BEGIN TOP NAVIGATION MENU -->
+            <div class="top-menu">
+                <ul class="nav navbar-nav pull-right">
+                    <!-- BEGIN NOTIFICATION DROPDOWN -->
+                    <li class="hidden-xs hidden-sm" id="header_notification_bar">
+                        <a id="header-clock" href=""></a>
+                    </li>
+                    <!-- END NOTIFICATION DROPDOWN -->
+
+                </ul>
+            </div>
+            <!-- END TOP NAVIGATION MENU -->
+        </div>
+    </div>
+    <!-- END HEADER TOP -->
+    <!-- BEGIN HEADER MENU -->
+    <div class="page-header-menu">
+        <div class="container">
+            <!-- BEGIN MEGA MENU -->
+            <div class="hor-menu  ">
+                <ul class="nav navbar-nav">
+                    <li class=" ">
+                        <a href="/" class="nav-link  ">
+                            首页
+                        </a>
+                    </li>
+                    {volist name="nav" id="nv"}
+                    <li {if condition="isset($nv['children'])  eq true" }class="menu-dropdown classic-menu-dropdown " {/if}>
+                        <a href="/{if condition=" $nv[ 'type']==1 "}artlist{elseif condition="$nv[ 'type'] eq 2 "/}artsingle{else /}img{/if}-{$nv.id}.shtml"> {$nv.name}
+                            {if condition="isset($nv['children'])  eq true"  }<span class="arrow"></span>{/if}
+                        </a> {if condition="isset($nv['children']) eq true" }
+                        <ul class="dropdown-menu pull-left">
+                            {volist name="nv.children" id="n1"}
+                            <li class=" ">
+                                <a href="/{if condition=" $n1[ 'type']==1 "}artlist{elseif condition="$n1[ 'type'] eq 2 "/}artsingle{else /}img{/if}-{$n1.id}.shtml" class="nav-link  ">
+                                    <i class="fa fa-stumbleupon"></i> {$n1.name}
+                                </a>
+                            </li>
+                            {/volist}
+                        </ul>
+                        {/if}
+                    </li>
+                    {/volist}
+
+                </ul>
+            </div>
+            <!-- END MEGA MENU -->
+        </div>
+    </div>
+    <!-- END HEADER MENU -->
+</div>
+<!-- END HEADER -->
+<script>
+    $(".text-show").click(function() {
+        $(this).empty();
+    });
+
+    //=========定义显示时间功能结束===================
+    function clock() {
+        var time = new Date().toLocaleString();
+        var htm = '<i class="fa fa-clock-o"></i>' + time;
+        $('#header-clock').html(htm);
+    }
+    setInterval("clock()", 1000);
+</script>

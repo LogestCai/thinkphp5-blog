@@ -1,0 +1,223 @@
+{include file="public/header" /}
+<style>
+    .layui-table-view .layui-table[lay-size=lg] .layui-table-cell {height: 58px;line-height: 58px;}
+    .wx-audio-content{padding:0px;border:0px;}
+    .wx-audio-content .wx-audio-left .wx-audio-state{margin-bottom:15px;}
+    .wx-audio-content .wx-audio-right .wx-audio-time{padding-top:0px;position: relative;bottom:6px;}
+    .wx-audio-content .wx-audio-right .wx-audio-progrees{top:6px;}
+</style>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" name="start" class="layui-input" onclick="wk.lay_date(this);" placeholder="创建开始日期">
+                    </div>
+                    <div class="layui-form-mid">
+                        -
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" name="end" class="layui-input" onclick="wk.lay_date(this);" placeholder="创建结束日期">
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <input type="text" id="key" class="layui-input" name="key" placeholder="文章名称"/>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <div class="layui-input-inline">
+                        <button class="layui-btn" lay-submit="" lay-filter="LAY-search">立即搜索</button>
+                        <button  class="layui-btn layui-btn-normal" id="empty"  lay-submit="" lay-filter="LAY-search">重置</button>
+                    </div>
+                </div>
+            </div>
+            <blockquote class="layui-elem-quote" style="margin-top: 10px;">
+                <button class="layui-btn" id="test3" onclick="setCountdown()">倒计时<span id="test2" >60</span>秒</button>
+                <button class="layui-btn" onclick="wk.msg('速度框架萨达成卡萨打可承受的擦上档次萨达初三党测试导出砂垫层坚')">提示信息</button>
+                <button class="layui-btn" onclick="wk.layer_show('打印订单','{:url('printOrder')}')">打印订单</button>
+                <button class="layui-btn layui-btn-normal" onclick="toastr.success('你有新消息了!','消息提示');wk.voice_msg();">成功消息</button>
+                <button class="layui-btn layui-btn-warm" onclick="toastr.warning('你有新消息了!','消息提示');">警告消息</button>
+                <button class="layui-btn layui-btn-danger" onclick="toastr.error('你有新消息了!','消息提示');">失败消息</button>
+                <button class="layui-btn layui-btn-info" onclick="toastr.info('你有新消息了!','消息提示');">信息消息</button>
+                <button class="layui-btn " onclick="wk.voice_msg()">声音消息</button>
+            </blockquote>
+            <div>
+                <button class="layui-btn" data-type="add" onclick="wk.href('{:url('add_article')}')">
+                    <i class="fa fa-plus"></i> 添加文章
+                </button>
+                <span class="layui-btn-dropdown" style="display:inline-block;">
+                    <button class="layui-btn layui-btn-danger" data-toggle="dropdown"><i class="fa fa-wrench"></i> 批量操作 <i class="fa fa-caret-down"></i></button>
+                    <ul class="layui-dropdown-menu layui-anim layui-anim-upbit">
+                        <li><a href="javascript:;" class="layuiBtn" data-type="getCheckData"><i class="fa fa-trash-o"></i> 批量删除 </a></li>
+                        <li><a  href="javascript:;" class="layuiBtn" data-type="usingAll" id="onAll"><i class="fa fa-check-circle"></i> 批量启用</a></li>
+                        <li><a  href="javascript:;" class="layuiBtn" data-type="forbiddenAll" id="offAll"><i class="fa fa-ban"></i> 批量禁用</a></li>
+                    </ul>
+                </span>
+            </div>
+        </div>
+
+        <div class="layui-card-body">
+            <table id="LAY-table-manage" lay-filter="LAY-table-manage"></table>
+            <!--图片模板-->
+            <script type="text/html" id="imgTpl">
+                <ul class="layui-cricle">
+                    <li><img src="{{d.photo[0]}}" class="layui-table-img layui-circle"onerror="this.src='/static/admin/images/timg.jpg'" /></li>
+                    {{# if(d.photo.length >= 1){ }}
+                        {{# for(var i=1;i<d.photo.length;i++){  }}
+                            <li style="display:none;"><img src="{{d.photo[i]}}" onerror="this.src='/static/admin/images/timg.jpg'" ></li>
+                        {{# } }}
+                    {{# } }}
+                </ul>
+            </script>
+            <!--音频模板-->
+            <script type="text/html" id="musicTpl">
+                <div id="music_{{d.id}}" style=""></div>
+            </script>
+            <!--状态模板-->
+            <script type="text/html" id="staBar">
+                <input type="checkbox" value="{{d.id}}"  lay-skin="switch"  lay-text="ON|OFF" lay-filter="OnOff"{{d.status == 1 ? 'checked' : '' }}  >
+            </script>
+            <!--操作模板-->
+            <script type="text/html" id="opeBar">
+                <a onclick="wk.layer_show('编辑文章','{:url('edit_article')}?id={{d.id}}')" class="layui-btn layui-btn-xs" title="编辑"><i class="fa fa-pencil"></i></a>
+                <a href="javascript:;" onclick="wk.confirm('{{d.id}}','{:url('del_article')}')" class="layui-btn layui-btn-danger layui-btn-xs" title="删除"><i class="fa fa-trash-o"></i></a>
+            </script>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+<script>
+    var music = function(){
+        if($('#music').length == 0){
+            $('body').append('<div id="music"></div>');
+        }
+        var wxAudio = wk.lay_audio({elem:'#music',src:'/static/admin/images/default.mp3'});
+        $('#music').hide();
+        wxAudio.audioPlay();
+    }
+
+    layui.use(['index', 'table','util'], function () {
+        var $ = layui.$
+            , form = layui.form
+            , table = layui.table
+        table.render({
+            elem: '#LAY-table-manage'
+            , url: '{:url("Article/index")}'
+            ,response: {
+                statusCode: 220 //成功的状态码，默认：0
+            }
+            , page: true
+            , even: false //开启隔行背景
+            , size: 'lg' //sm小尺寸的表格 lg大尺寸
+            // ,width:100
+            , cellMinWidth: 150
+            , height: "full-220"
+            , limits: [10, 20, 30, 40, 50]
+            , limit: "{:config('pages')}"
+            , loading: true
+            , id: 'LAY-table'
+            , cols: [[
+                {type: 'checkbox', fixed: 'left',}
+                , {field: 'id', width: 60, title: 'ID', sort: true, align: 'center'}
+                , {field: 'title', width: '', title: '标题', align: 'center'}
+                , {field: 'name', width: '', title: '所属分类', align: 'center'}
+                , {field: 'picture', width: 80, title: '封面', align: 'center',templet: '#imgTpl'}
+                , {field: 'views', width: '', title: '浏览量',sort: true, align: 'center'}
+                , {field: 'music', width: 290, title: '音频', align: 'center',templet:'#musicTpl'}
+                , {field: 'is_tui', width: 100, title: '是否推荐', align: 'center',templet: "<div>{{ d.is_tui==1?'是':'否'}}</div>"}
+                , {field: 'create_time', width: 180, title: '创建时间',sort: true, align: 'center',templet:"<div>{{layui.util.toDateString(d.create_time,'yyyy年MM月dd日')}}</div>"}
+                , {field: 'update_time', width: 180, title: '更新时间',sort: true, align: 'center'}
+                , {field: 'status',fixed: 'right', width: 100, title: '状态',sort: true, align: 'center', templet: '#staBar'}
+                , {fixed: 'right', width: 120, title: '操作', align: 'center', toolbar: '#opeBar'}
+            ]]
+            ,done: function (res, curr, count) {
+                $('.layui-cricle').viewer({
+                    url: 'data-original',
+                });
+                $.each(res.data,function(index,item) {
+                    wk.lay_audio({elem:'#music_'+item['id'],src:item['music'],width:'250px'});
+                });
+            }
+        });
+        //监听状态开关操作
+        form.on('switch(OnOff)', function (obj) {
+            var num = '';
+            obj.elem.checked == true? num = 1: num = 2;
+            //用户状态
+            wk.status(this.value,num, '{:url("user_state")}',obj);
+        });
+        //事件
+        var active = {
+            getCheckData: function(){
+                //批量删除
+                wk.batchDel(getIds(),"{:url('batchDelUser')}");
+            }
+            ,forbiddenAll: function(){
+                //批量禁用
+                wk.batchForbidden(getIds(),2,"{:url('forbiddenAdmin')}");
+            }
+            ,usingAll: function(){
+                //批量启用
+                wk.usingAll(getIds(),1,"{:url('usingAdmin')}");
+            }
+            ,excelAll: function(){
+                //导出Excel
+                wk.excelAll(getIds(),$("form").serialize(),"{:url('excelAdmin')}");
+            }
+        };
+
+        $('.layuiBtn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+        var getIds = function () {
+            var ids = [];
+            var checkStatus = table.checkStatus('LAY-table')
+                ,data = checkStatus.data;
+            $.each(data,function(index,item){
+                ids.push(item['id'])
+            });
+            return ids;
+        }
+
+        //倒计时
+        // var thisTimer, setCountdown = function(){
+        //     lay('#test3').addClass('layui-disabled').attr('disabled').text('完了');
+        //     var endTime = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate(),new Date().getHours(),new Date().getMinutes(),new Date().getSeconds() + 60).getTime() //结束日期
+        //         ,serverTime = new Date().getTime(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+        //     clearTimeout(thisTimer);
+        //     util.countdown(endTime, serverTime, function(date, serverTime, timer){
+        //         var str = date[3] + '秒';
+        //         if(date[3] == 0){
+        //             lay('#test3').removeClass('layui-disabled').removeAttr('disabled').text('完了');
+        //         }else{
+        //             lay('#test2').html(str);
+        //         }
+        //         thisTimer = timer;
+        //     });
+        // };
+        // var date = new Date();
+        // setCountdown(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds() + 60);
+    });
+    var thisTimer, setCountdown = function(){
+        $('#test3').addClass('layui-disabled').attr('disabled','disabled');
+        var endTime = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate(),new Date().getHours(),new Date().getMinutes(),new Date().getSeconds() + 60).getTime() //结束日期
+            ,serverTime = new Date().getTime(); //假设为当前服务器时间，这里采用的是本地时间，实际使用一般是取服务端的
+        clearTimeout(thisTimer);
+        layui.util.countdown(endTime, serverTime, function(date, serverTime, timer){
+            var str = date[3];
+            if(date[3] == 0){
+                $('#test3').removeClass('layui-disabled').removeAttr('disabled');
+                $('#test2').html(60);
+            }else{
+                $('#test2').html(str);
+            }
+            thisTimer = timer;
+        });
+    };
+</script>
+</body>
+</html>

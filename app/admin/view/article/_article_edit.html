@@ -1,0 +1,146 @@
+<div class="modal-dialog modal-full">
+    <div class="modal-content">
+        <div id="md-title" class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">文章修改</h4>
+        </div>
+        <div id="md-body" class="modal-body">
+            <!-- BEGIN FORM-->
+            <form  action="#" id="form_article_add" class="form-horizontal" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="id" value="{$article.id}">
+                <div class="form-body">
+                    <div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+                    </div>
+                    <div class="alert alert-success display-hide">
+                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">标题
+                            <span class="required" aria-required="true"> * </span>
+                        </label>
+                        <div class="col-md-9">
+                            <input  type="text" id="inp-title" name="title" value="{$article.title}"  placeholder="请输入文章标题" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">分类
+                        </label>
+                        <div class="col-md-9">
+                            <select name="cate_id" class="form-control">
+                                {volist name="cateRes" id="vc"}
+                                <option {if condition="$article['cate_id'] eq $vc['id']"}selected{/if}  value="{$vc.id}"><?php if($vc['level']>0){echo str_repeat('|--',$vc['level']);} ?>{$vc.name}</option>
+                                {/volist}
+                            </select>
+                             </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">标签
+                        </label>
+                        <div class="col-md-9">
+                            <?php
+                             $tag = '';
+                             if(!empty($tags)){
+                                foreach($tags as $kk=>$vv)
+                                {
+                                    $tag .=$vv['tag'].',';
+                                }
+                             $tag = rtrim($tag,',');
+                             }
+                             ?>
+                            <input type="text" id="inp-tags" name="tags" value="<?php echo $tag ?>" placeholder="请输入文章标签最多3个"  class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                        </label>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" id="inp-views"  name="views" value="{$article.views}" placeholder="点击量" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="inp-orderby"  name="orderby" value="{$article.orderby}" placeholder="排序" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="inp-writer"  name="writer" value="{$article.writer}" placeholder="作者" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">推荐项
+                        </label>
+                        <div class="col-md-9">
+                            <div class="mt-radio-inline">
+                                <label class="mt-radio">
+                                    <input
+                                           type="checkbox"
+                                           {if condition="$article['is_tui'] eq 1"}checked {/if}
+                                           name="is_tui"
+                                            value="1" >推荐
+                                    <span></span>
+                                </label>
+                                <label class="mt-radio">
+                                    <input
+                                           type="checkbox"
+                                           {if condition="$article['is_hot'] eq 1"}checked {/if}
+                                           name="is_hot"
+                                           value="1">热门
+                                    <span></span>
+                                </label>
+                                <label class="mt-radio">
+                                    <input
+                                          type="checkbox"
+                                          {if condition="$article['is_img'] eq 1"}checked {/if}
+                                          name="is_img"
+                                          value="1"  >图片
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">缩略图</label>
+                        <div class="col-md-9">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
+                                    <img id="prv-img"
+                                    {if condition="$article['photo'] neq ''"}
+                                         src="{$article.photo}" />
+                                    {else /}
+                                    src="http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image" style="display: block;overflow: hidden ;max-height: 100%" alt="" />
+                                    {/if}
+                                </div>
+                                <div id="select-btn"><a href="javascript:;" onclick="openUpLoad()"  class="btn btn-success"><i class="fa fa-image"></i>
+                                    {if condition="$article['photo'] neq ''"}重新选择{else /}选择文件{/if}
+                                </a>
+                                    <input id="file-hide-click" onchange="imgChange(this)" type="file" class="hidden" name="thumb_img" formenctype="multipart/form-data">
+                                    <input id="file-hide-val" type="hidden" name="thumb_img" value="{$article.photo}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">内容
+                        </label>
+                        <div   class="col-md-9">
+                            <div id="test-editor">
+                                <textarea id="inp-content"  style="display:none;">{$article.ora_content}</textarea>
+                            </div>
+                    </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-4 col-md-8">
+                                <button type="button"  class="btn green btn-send-form">提交</button>
+                                <button type="button"  class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>

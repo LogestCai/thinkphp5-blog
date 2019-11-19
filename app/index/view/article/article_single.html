@@ -1,0 +1,218 @@
+{include file="public/headercss" /}
+<link href="__PAGE__/global/plugins/editormd/css/editormd.css" rel="stylesheet" type="text/css" />
+
+<link href="__PAGE__/global/plugins/editormd/css/sons-of-obsidian.css" rel="stylesheet" type="text/css" />
+</head>
+<!-- END HEAD -->
+<style>
+    img {
+        max-width: 100%;
+    }
+    
+    .blog-single-nav {
+        border-bottom: 1px solid;
+        border-color: #f0f1f2;
+        padding: 20px 0 25px;
+        margin-bottom: 20px;
+    }
+    
+    .editormd-preview-container pre,
+    .editormd-html-preview pre {
+        background: #1d1c1c;
+    }
+    
+    #test-editormd-view {
+        padding-left: 0;
+    }
+    
+    #MZAD_POP_PLACEHOLDER,
+    #pop_ad {
+        margin-top: -250px!important;
+        transform: scale(0)
+    }
+    
+    #feedAv {
+        transform: scale(0);
+        margin-top: -150px!important
+    }
+</style>
+
+<body class="page-container-bg-solid page-boxed page-header-menu-fixed">
+    <!-- 头部区域开始 -->
+    {include file="public/header" /}
+    <!-- 头部区域结束 -->
+    <!-- BEGIN CONTAINER -->
+    <div class="page-container">
+        <!-- BEGIN CONTENT -->
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <!-- BEGIN PAGE CONTENT BODY -->
+            <div class="page-content">
+                <div class="container">
+                    <!-- 导航条开始 -->
+                    {include file="public/bread" /}
+                    <!-- 导航条结束 -->
+                    <!-- BEGIN PAGE CONTENT INNER -->
+                    <div class="page-content-inner">
+                        <div class="blog-page blog-content-1">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="blog-page blog-content-2">
+                                                <div class="row">
+                                                    <?php if(count($article)>0){?>
+                                                    <div class="col-lg-12">
+                                                        <div class="blog-single-content bordered blog-container">
+                                                            <div class="blog-single-head">
+                                                                <h1 class="blog-single-head-title">{$article.title}</h1>
+                                                                <div class="blog-single-head-date">
+
+                                                                </div>
+                                                            </div>
+                                                            <!--div class="img-responsive">
+                                                            <img class="img-responsive" src="{$article.photo}" />
+                                                         </div-->
+                                                            <div id="test-editormd-view" class="blog-single-desc">
+
+                                                                <textarea style="display:none;" id="test-editormd-markdown-doc">{$article.ora_content}
+                                                                </textarea>
+                                                            </div>
+                                                            <div class="blog-single-foot">
+                                                                <ul class="blog-post-tags hidden-xs">
+
+                                                                    <?php
+                                                        if($article['tags']!=='')
+                                                        {
+                                                           $rest = explode(',',$article['tags']);
+                                                           foreach($rest as $vv){
+                                                             echo '<li class="uppercase">
+                                                                <a class="btn  btn-circle btn-transparent" href="javascript:;">'.$vv.'</a></li>';}
+                                                                }?>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="blog-single-comment">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 col-lg-12">
+                                                                        <!-- 畅言插件开始 -->
+                                                                        <!--PC和WAP自适应版-->
+                                                                        <div id="SOHUCS" sid="{$article.id}"></div>
+                                                                        <script type="text/javascript">
+                                                                            (function() {
+                                                                                var appid = 'cyuwQjlFs';
+                                                                                var conf = 'prod_5b15aa10368a1433e2118db64e5c128f';
+                                                                                var width = window.innerWidth || document.documentElement.clientWidth;
+                                                                                if (width < 960) {
+                                                                                    var head = document.getElementsByTagName('head')[0] || document.head || document.documentElement;
+                                                                                    var script = document.createElement('script');
+                                                                                    script.type = 'text/javascript';
+                                                                                    script.charset = 'utf-8';
+                                                                                    script.id = 'changyan_mobile_js';
+                                                                                    script.src = 'https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf;
+                                                                                    head.appendChild(script);
+                                                                                } else {
+                                                                                    var loadJs = function(d, a) {
+                                                                                        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+                                                                                        var b = document.createElement("script");
+                                                                                        b.setAttribute("type", "text/javascript");
+                                                                                        b.setAttribute("charset", "UTF-8");
+                                                                                        b.setAttribute("src", d);
+                                                                                        if (typeof a === "function") {
+                                                                                            if (window.attachEvent) {
+                                                                                                b.onreadystatechange = function() {
+                                                                                                    var e = b.readyState;
+                                                                                                    if (e === "loaded" || e === "complete") {
+                                                                                                        b.onreadystatechange = null;
+                                                                                                        a()
+                                                                                                    }
+                                                                                                }
+                                                                                            } else {
+                                                                                                b.onload = a
+                                                                                            }
+                                                                                        }
+                                                                                        c.appendChild(b)
+                                                                                    };
+                                                                                    loadJs("https://changyan.sohu.com/upload/changyan.js", function() {
+                                                                                        window.changyan.api.config({
+                                                                                            appid: appid,
+                                                                                            conf: conf
+                                                                                        })
+                                                                                    });
+                                                                                }
+                                                                            })();
+                                                                        </script>
+                                                                        <!-- 畅言插件结束 -->
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php }else{?>
+                                                    <div style="padding: 0 15px">
+                                                        <h3>无有效信息！</h3>
+                                                    </div>
+                                                    <?php }?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 blog-page blog-content-2">
+                                    <div class="blog-single-sidebar bordered blog-container ">
+                                        <!--全文搜索开始 -->
+                                        {include file="public/search" /}
+                                        <!--全文搜索结束 -->
+                                        <!-- 最新文章开始 -->
+                                        {include file="public/sidebar_recent" /}
+                                        <!-- 最新文章结束 -->
+                                        <!-- 博客标签TAgs开始 -->
+                                        {include file="public/sidebar_tags" /}
+                                        <!-- 博客标签TAgs结束 -->
+                                        <!-- 热门文章开始 -->
+                                        {include file="public/sidebar_hot" /}
+                                        <!-- 热门文章结束 -->
+                                        <!-- 图片文章开始 -->
+                                        {include file="public/sidebar_img" /}
+                                        <!-- 图片文章结束 -->
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- END PAGE CONTENT INNER -->
+                </div>
+            </div>
+            <!-- END PAGE CONTENT BODY -->
+            <!-- END CONTENT BODY -->
+        </div>
+        <!-- END CONTENT -->
+    </div>
+    <!-- END CONTAINER -->
+    <!-- FOOTER区域开始 -->
+    {include file="public/footer" /}
+    <!-- FOOTER区域结束  -->
+    <!-- END THEME LAYOUT SCRIPTS -->
+    <script src="__PAGE__/global/plugins/editormd/lib/marked.min.js"></script>
+    <script src="__PAGE__/global/plugins/editormd/lib/google-code-prettify/prettify.js"></script>
+    <script src="__PAGE__/global/plugins/editormd/lib/raphael.min.js"></script>
+    <script src="__PAGE__/global/plugins/editormd/lib/underscore.min.js"></script>
+    <script src="__PAGE__/global/plugins/editormd/lib/sequence-diagram.min.js"></script>
+    <script src="__PAGE__/global/plugins/editormd/lib/flowchart.min.js"></script>
+    <script src="__PAGE__/global/plugins/editormd/editormd.js"></script>
+    <script>
+        editormd.markdownToHTML("test-editormd-view", {
+            htmlDecode: "style,script,iframe", // you can filter tags decode
+            emoji: true,
+            taskList: true,
+            tex: true, // 默认不解析
+            flowChart: false, // 默认不解析
+            sequenceDiagram: true, // 默认不解析
+            path: "__PAGE__/global/plugins/editormd/lib/",
+            previewTheme: "dark"
+        });
+    </script>
+</body>
+
+</html>

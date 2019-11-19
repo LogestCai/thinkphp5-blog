@@ -1,0 +1,444 @@
+{include file="public/header" /}
+<body class="gray-bg">
+<div class="layui-fluid layui-col-md12">
+    <div class="layui-card">
+        <div class="layui-card-header">添加文章</div>
+        <div class="layui-card-body layui-form">
+            <div class="layui-row layui-col-space10 layui-form-item ">
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">TableSelect</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input layui-hide" id="layTables" name="title" lay-verify="required" placeholder="文章标题" value="1,3,5,7,9,11,13,14" >
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">一键粘贴</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input layui-disabled" name="title" lay-verify="required" placeholder="文章标题" value="123123e214" readonly>
+                        <div class="layui-copy" onclick="wk.lay_copy(this)" title="复制" alt="复制"><span><i class="fa fa-paste"></i></span></div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">所属分类</label>
+                    <div class="layui-input-block">
+                        <select name="cate_id" lay-verify="required" lay-search="">
+                            <option value="">请选择分类</option>
+                            {if !empty($cate)}
+                                {foreach name="cate" item="vo"}
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                {/foreach}
+                            {/if}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">三级联动</label>
+                    <div class="layui-input-inline">
+                        <select name="province" lay-search="" id="province" lay-filter="province">
+                            <option value="">---- 请选择省 ----</option>
+                            {foreach name="province" item="vo"}
+                                <option value="{$vo.district_id}">{$vo.district}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="city" lay-search=""  id="city" lay-filter="city">
+                            <option value="">---- 请选择市 ----</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="district" lay-search="" id="district" lay-filter="district">
+                            <option value="">---- 请选择区 ----</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">关键字</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input " name="keyword" lay-verify="required" placeholder="文章关键字">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block">
+                        <textarea name="remark" class="layui-textarea" lay-verify="required" placeholder="文章描述"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">单图片上传</label>
+                    <input type="hidden" name="lay-img" id="lay-img" lay-verify="image">
+                    <div class="layui-input-block">
+                        <div id="lay-upload">上传图片</div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览图：
+                            <div class="layui-upload-list" id="lay-img-list">
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">单图片上传</label>
+                    <input type="hidden" name="lay-img1" id="lay-img1" lay-verify="image">
+                    <div class="layui-input-block">
+                        <div id="lay-upload1">上传图片</div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览图：
+                            <div class="layui-upload-list" id="lay-img-list1">
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">音频上传</label>
+                    <input type="hidden" name="lay-music" id="lay-music" lay-verify="music">
+                    <div class="layui-input-block">
+                        <div id="lay-music-upload">上传音频</div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览音频：
+                            <div class="layui-upload-list" id="lay-music-list">
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">音频上传</label>
+                    <input type="hidden" name="lay-music" id="lay-music1" lay-verify="music">
+                    <div class="layui-input-block">
+                        <div id="lay-music-upload1">上传音频</div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览音频：
+                            <div class="layui-upload-list" id="lay-music-list1">
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+                <!--<div class="layui-form-item layui-col-md-offset1 layui-col-md8">-->
+                    <!--<label class="layui-form-label">上传视频：</label>-->
+                    <!--<div class="layui-input-block">-->
+                        <!--<button type="button" class="layui-btn" id="lay-upload2">上传视频</button>-->
+                        <!--<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">-->
+                            <!--预览视频：-->
+                            <!--<div class="layui-upload-list" id="lay-video-list">-->
+                                <!--<span id="lay-msg" style="display: none;">-->
+                                    <!--<div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="lay-video">-->
+                                        <!--<div class="layui-progress-bar" lay-percent="0%"></div>-->
+                                    <!--</div>-->
+                                    <!--<p>正在上传... <i class="layui-icon layui-icon-loading-1 layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i></p>-->
+                                <!--</span>-->
+                            <!--</div>-->
+                        <!--</blockquote>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">上传视频：</label>
+                    <input type="hidden" name="lay-video" >
+                    <div class="layui-input-block">
+                        <div id="lay-upload2">上传视频</div>
+                        <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                            预览视频：
+                            <div class="layui-upload-list" id="lay-video-list">
+                            </div>
+                        </blockquote>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md10">
+                    <label class="layui-form-label">多图片上传</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="photo" id="photo" lay-verify="image">
+                        <div id="uploader" class="container">
+                            <div class="queueList">
+                                <div class="placeholder">
+                                    <div id="filePicker"></div>
+                                    <p>或将照片拖到这里</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                <div class="layui-progress layui-progress-big active" lay-showpercent="true">
+                                    <div class="layui-progress-bar layui-bg-blue" lay-percent="0%">
+                                    </div>
+                                    <span></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="goPicker" class="filePicker2"></div>
+                                    <div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md10">
+                    <label class="layui-form-label">多图片上传1</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="photo" id="photo1" lay-verify="image">
+                        <div id="uploader1" class="container">
+                            <div class="queueList">
+                                <div class="placeholder">
+                                    <div id="filePicker1"></div>
+                                    <p>或将照片拖到这里</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                <div class="layui-progress layui-progress-big active" lay-showpercent="true">
+                                    <div class="layui-progress-bar layui-bg-blue" lay-percent="0%">
+                                    </div>
+                                    <span></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="goPicker1" class="filePicker2"></div>
+                                    <div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md10">
+                    <label class="layui-form-label">多图片上传2</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="photo" id="photo2" lay-verify="image">
+                        <div id="uploader2" class="container">
+                            <div class="queueList">
+                                <div class="placeholder">
+                                    <div id="filePicker2"></div>
+                                    <p>或将照片拖到这里</p>
+                                </div>
+                            </div>
+                            <div class="statusBar" style="display:none;">
+                                <div class="layui-progress layui-progress-big active" lay-showpercent="true">
+                                    <div class="layui-progress-bar layui-bg-blue" lay-percent="0%">
+                                    </div>
+                                    <span></span>
+                                </div>
+                                <div class="info"></div>
+                                <div class="btns">
+                                    <div id="goPicker2" class="filePicker2"></div>
+                                    <div class="uploadBtn">开始上传</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">所属分类</label>
+                    <div class="layui-input-block">
+                        <select name="cate_id" lay-verify="required" lay-search="">
+                            <option value="">请选择分类</option>
+                            {if !empty($cate)}
+                            {foreach name="cate" item="vo"}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/foreach}
+                            {/if}
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md10">
+                    <label class="layui-form-label">wangEditor编辑器</label>
+                    <div class="layui-input-block" id="LAY_editor" lay-verify="editor">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md10">
+                    <label class="layui-form-label">layEdit</label>
+                    <div class="layui-input-block" >
+                        <textarea class="layui-textarea" name="lay_content" id="LAY_editor1" placeholder="文章描述"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md10">
+                    <label class="layui-form-label">百度富文本：</label>
+                    <div class="layui-input-block" >
+                        <textarea name="lay_content" id="LAY_editor2" placeholder="文章描述"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">浏览量</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input " name="views" lay-verify="required" placeholder="文章浏览量" onkeyup="value=value.replace(/[^\d]/g,'')">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">作者</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input " name="views" lay-verify="required" placeholder="文章作者">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <label class="layui-form-label">是否推荐</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_tui" value="1" title="是" checked>
+                        <input type="radio" name="is_tui" value="2" title="否" >
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-md-offset1 layui-col-md8">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="component-form-element">保存
+                        </button>
+                        <button class="layui-btn layui-btn-primary" onclick="history.back()">关闭</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="public/footer" /}
+<script>
+
+    //百度富文本编辑器
+    var editor = UE.getEditor('LAY_editor2', {
+        initialFrameHeight:450,
+        autoHeight: false,
+        autoHeightEnabled:false,
+        autoFloatEnabled:false
+    });
+    //自定义上传接口
+    UE.Editor.prototype._bkGetActionUrl = UE.Editor.prototype.getActionUrl;
+    UE.Editor.prototype.getActionUrl = function(action) {
+        if (action == 'uploadimage' || action == 'uploadscrawl') {
+            return '/admin/upload/ueditorUpload';//这就是自定义的上传地址
+        } else {
+            return this._bkGetActionUrl.call(this, action);
+        }
+    }
+
+
+    var n = wk.uploads({num:3,type:'png',url:"{:url('admin/upload/uploadLocality')}"});
+    var n1 = wk.uploads({num:4,type:'jpg',attr:1});
+    var n2 = wk.uploads({num:6,type:'jpg,png',attr:2});
+    function imgDel(e,obj){
+        wk.uploads_del(e,obj,n,"{:url('admin/upload/deleteLocality')}");
+    }
+    function imgDel1(e,obj){
+        wk.uploads_del(e,obj,n1);
+    }
+    function imgDel2(e,obj){
+        wk.uploads_del(e,obj,n2);
+    }
+
+    var editor = wk.wang({elem:'#LAY_editor'});
+    var index = wk.layeditor('LAY_editor1');
+    wk.uploadImg({size:2,type:'png',url:"{:url('Upload/upload')}",domain:"{:config('qiniu.domain')}"});
+    wk.uploadImg({size:5,num:1,type:'jpg',url:"{:url('Upload/upload')}",domain:"{:config('qiniu.domain')}"});
+    wk.uploadMusic({size:100,type:'mp3',url:"{:url('Upload/upload')}",domain:"{:config('qiniu.domain')}"});
+    wk.uploadMusic({size:100,num:1,type:'mp3',url:"{:url('Upload/upload')}",domain:"{:config('qiniu.domain')}"});
+    wk.tableSelect({elem:'#layTables',field:'id',name:'name',key:'keyword',splaceholder:'昵称',iplaceholder:'请选择数据',url:"{:url('getUserData')}",cols:[{type: 'checkbox'}, {field: 'id', width: '', title: 'ID', align: 'center'}, {field: 'name', width: '', title: '用户名', align: 'center'}]});
+
+    var uploader = WebUploader.create({
+        auto: true,// 选完文件后，是否自动上传。
+        server: '/admin/Upload/video',// 文件接收服务端。
+        duplicate :true,// 重复上传文件，true为可重复false为不可重复
+        chunked: true,// 分片上传大文件
+        pick: {
+            id: "#lay-upload2",// 选择文件的按钮
+            multiple: false,//true多文件上传 false单文件上传
+            label: "选择视频"
+        },
+        fileSingleSizeLimit: 200*1024*1024, //限制上传单个文件大小，单位是B，1M=1024000B
+        accept: {
+            title: 'Video',
+            extensions: 'mp4',
+            mimeTypes: '.mp4'
+        },
+        //上传成功
+        'onUploadSuccess': function(file, data, response) {
+            layui.config({
+                base: '/src/' //静态资源所在路径
+            }).extend({
+                ckplayer: 'modules/ckplayer'
+            }).use(['ckplayer'], function() {
+                var ckplayer = layui.ckplayer
+                var videoObject = {
+                    container: '#' + file.id,
+                    loop: false,
+                    autoplay: false,
+                    video: [
+                        [data._raw, 'video/mp4']
+                    ]
+                };
+                var player = new ckplayer(videoObject);
+            })
+            $( '#'+file.id ).show();
+            $( '#'+file.id ).next('div').hide();
+            $( '#'+file.id ).next().next('p').html('<span style="color: #009688;">上传成功!</span>');
+        },
+        //上传失败
+        'uploadError':function(file){
+            $( '#'+file.id ).next('div').hide();
+            $( '#'+file.id ).next().next('p').html('<span style="color: #FF5722;">上传失败!</span>');
+        }
+    });
+
+    //上传进度
+    uploader.on( 'uploadProgress' ,function(file,percentage){
+        layui.element.progress('lay-video', Math.round(100 * percentage)+'%');
+    });
+    //视频加入队列
+    uploader.on( 'fileQueued', function( file ) {
+        $('#lay-video-list').html('<div id="' + file.id + '" style="width: 80%;height: auto;display:none;"></div><div class="layui-progress layui-progress-big" lay-showpercent="true" lay-filter="lay-video"><div class="layui-progress-bar" lay-percent="0%"></div></div><p id="lay-msg">正在上传... <i class="layui-icon layui-icon-loading-1 layui-icon layui-anim layui-anim-rotate layui-anim-loop"></i></p>')
+    });
+
+
+    //错误信息提示
+    uploader.on('error', function (code) {
+        switch (code) {
+            case 'F_EXCEED_SIZE':
+                layer.msg('视频大小不得超过'+  uploader.options.fileSingleSizeLimit/1024/1024 + 'MB',{icon:2,time:1500,shade:0.1});
+                break;
+            case 'Q_TYPE_DENIED':
+                layer.msg('请上传正确的视频格式',{icon:2,time:1500,shade:0.1});
+                break;
+            default:
+                layer.msg('上传错误，请刷新',{icon:2,time:1500,shade:0.1});
+                break;
+        }
+    });
+    layui.use(['form','upload','layedit','element'], function() {
+        var form = layui.form
+            , layedit = layui.layedit
+            , upload = layui.upload
+            , element = layui.element
+
+        //layedit富文本
+        layedit.set({
+            uploadImage: {
+                url: '/admin/Upload/layUpload',
+                type: 'post'
+            }
+        });
+        var index = layedit.build('LAY_editor1', {height: 400});
+
+
+        form.verify({
+            image:[/\S/,'请上传图片'],
+            music:[/\S/,'请上传音频'],
+            editor:function(value,item){
+                if(editor.txt.html() == '<p><br></p>'){
+                    return '请填写内容';
+                }
+            }
+        });
+        form.on('submit(component-form-element)', function (data) {
+            $('.layui-btn').addClass('layui-disabled').attr('disabled','disabled');
+            data.field.html = editor.txt.html();
+            layedit.sync(index);
+            // data.field.lay_content = layedit.getContent(index);
+            $.ajax({
+                url:"{:url('add_article')}",
+                type:'post',
+                dataType:'json',
+                data:data.field,
+                success:function(res){
+                    if (res.code == 200) {
+                        layer.msg(res.msg,{icon:1,time:1500,shade:0.1},function(index){
+                            wk.layer_close();
+                        })
+                    } else {
+                        $(".layui-btn").removeClass('layui-disabled').removeAttr('disabled');
+                        wk.error(res.msg);
+                        return false;
+                    }
+                }
+            })
+        });
+    });
+</script>
+</body>
+</html>

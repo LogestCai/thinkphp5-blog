@@ -1,0 +1,411 @@
+{include file="public/page_header"}
+
+<style>
+    .editormd-preview-close-btn {
+        display: none !important;
+    }
+</style>
+<body style="background: #eef1f5;">
+<!-- BEGIN PAGE HEADER-->
+<!-- BEGIN THEME PANEL -->
+<div class="portlet light">
+    <div class="portlet-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="portlet box dark">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-cogs"></i>广告列表
+                            <button
+                                class="btn  btn-sm btn-circle red btn-transparent btn-outline btn-add"
+                                data-url="/adv_add"
+                            >
+                                <i class="fa fa-plus"></i> 新增广告</button>
+                            <button
+                                    class="btn  btn-sm btn-circle white btn-transparent btn-outline btn-group-add"
+                                    data-url="/adv_group"
+                            >
+                                <i class="fa fa-plus"></i> 添加分组</button>
+                        </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th> No </th>
+                                    <th> 名称 </th>
+                                    <th> 组 </th>
+                                    <th> 图片 </th>
+                                    <th> 跳转连接 </th>
+                                    <th> 广告类型 </th>
+                                    <th> 使用 </th>
+                                    <th> 操作 </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="resData" id="vo"}
+                                <tr>
+                                    <td> {$vo.id} </td>
+                                    <td  title="{$vo.title}"> {$vo.title|msubstr=0,10} </td>
+                                    <td> {$vo.group_name} </td>
+                                    <td> 查看图片<i style="cursor: hand" data-url="{$vo.img_url}" class="fa fa-picture-o get-big-img"></i> </td>
+                                    <td> {$vo.link_url} </td>
+                                    <td> {$vo.type} </td>
+                                    <td>
+                                        <span
+                                                data-id="{$vo.id}"
+                                                data-field="status"
+                                                data-status="{$vo.status}"
+                                                data-url="/change_hot_status"
+                                                class='btn btn-xs btn-circle
+                                                {if condition="$vo['status'] eq 0"} dark
+                                        {else /} red
+                                        {/if} ch-status'>
+                                        {if condition="$vo['status'] eq 0"}
+                                        <i class="fa fa-ban"></i>否
+                                        {else /}<i class="fa fa-check"></i>是
+                                        {/if}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button title="修改"
+                                                onclick="editor({$vo.id})"
+                                                class="btn btn-xs red btn-circle btn-transparent btn-outline item-edit">
+                                            <i class="fa fa-pencil"></i> 修改
+                                        </button>
+                                        <button title="删除"
+                                                class="btn btn-xs dark btn-circle btn-transparent btn-outline item-delete"
+                                                data-id="{$vo.id}"
+                                                data-url="/adv_del"
+                                            >
+                                            <i class="fa fa-trash"></i> 删除
+                                        </button>
+                                    </td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- 页面模态框结构开始 -->
+    <div class="modal fade" id="md-edit-add-form" aria-hidden="true">
+
+    </div>
+    <!-- 页面模态框结构结束 -->
+    <div class="modal fade" id="md-group-add" aria-hidden="true">
+
+    </div>
+    <!-- 添加分组模态框开始 -->
+
+    <!-- 添加分组模态框结束 -->
+    {include file="public/page_footer"}
+    <script src="__PAGE__/global/plugins/editormd/editormd.js"></script>
+
+    <!-- 这里是js区域开始 -->
+    <script>
+        //内容添加事件
+        $('.btn-add').click(function(){
+            var url = $(this).data('url');
+            $.ajax({
+                type:'get',
+                dateType:'html',
+                url:url,
+                //sync:true,
+                success:function(dd){
+                    // console.log(dd);
+                    $('#md-edit-add-form').empty();
+                    $('#md-edit-add-form').append($(dd));
+                    //设置标签显示
+                   // setTags("#inp-tags");
+                    //设置图片显示
+                    //setImg();
+                    $('#md-edit-add-form').modal('show');
+                },
+                error:function(){
+                    wk.error('服务端错误！',2);
+                }
+            })
+
+        })
+
+        //表单提交验证函数
+        function validateForm()
+        {
+            var title = $('#inp-title').val();
+            var link_url = $('#inp-link_url').val();
+
+            if(title=='')
+            {
+                wk.error('广告名称不能为空！');
+                $('#inp-title').focus();
+                return false;
+            }
+            if(link_url=='')
+            {
+                wk.error('跳转连接不能为空！');
+                $('#inp-link_url').focus();
+                return false;
+            }
+
+
+        }
+
+
+
+
+
+        //图片上传打开
+        function openUpLoad()
+        {
+            $("#file-hide-click").click();
+        }
+
+        //图片改变事件
+        function imgChange(e){
+            var filePath = $(e).val();//获取到input的value，里面是文件的路径
+            console.log(filePath);
+            fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),
+                src = window.URL.createObjectURL(e.files[0]); //转成可以在本地预览的格式
+
+            // 检查是否是图片
+            if(!fileFormat.match(/.png|.jpg|.jpeg/)) {
+                wk.error('图片格式不合法，只能是png,jpg,jpeg');
+                return;
+            }else{
+                var form_data = new FormData();
+//                console.log(form_data);
+//                console.log(e.files[0]);
+                form_data.append('img', e.files[0]); //append方法传入formData中
+                $.ajax({
+                    type:'post',
+                    dataType:'json',
+                    data:form_data,
+                    processData: false,//此条和下一条 用于屏蔽TypeError: 'append' called on an object that does not implement interface FormData
+                    contentType: false,//
+                    url:'/upLoadThumbImg',
+                    success:function(eve){
+                        if(eve.status==1)
+                        {
+                            $('#select-btn').find('a').empty();
+                            $('#select-btn').find('a').append($('<i class="fa fa-image"></i><span>重新选择</span>'));
+                            $('#file-hide-val').val(eve.url);//将inpt赋值为上传后的地址
+                            $('#prv-img').attr('src', eve.url);//显示预览图像
+                        }
+                    }
+
+                })
+
+            }
+        }
+
+
+        //文章提交保存事件
+        $('body').on('click','.btn-send-form',function(){
+            var data = $('#form_article_add').serialize();
+            //console.log(data);
+            var validate = validateForm();
+            if(validate==false)
+            {
+                return false;
+            }
+            $.ajax({
+                type:'post',
+                dataType:'json',
+                url:'/adv_add',
+                data:data,
+                success:function(eve){
+                    if(eve.code==200)
+                    {
+                        $('#md-edit-add-form').modal('hide');
+                        wk.msg(eve.msg,'','确认');
+                        window.location.reload();
+                    }else
+                    {
+                        wk.error(eve.msg,1);
+                    }
+                },
+                error:function(){
+                    wk.error('服务请求失败',2)
+                }
+            })
+        });
+
+        //栏目修改
+        function editor(id)
+        {
+            $.ajax({
+                type:'get',
+                dataType:'html',
+                url:'/adv_add/'+id,
+                success:function(dd){
+                    // console.log(dd);
+                    $('#md-edit-add-form').empty();
+                    $('#md-edit-add-form').append($(dd));
+                    $('#md-edit-add-form').modal('show');
+                }
+            });
+        }
+
+        //文章删除
+        $("body").on('click','.item-delete',function(){
+            var id = $(this).data('id');
+            var url = $(this).data('url');
+            var del_ele = $(this);
+            layer.confirm('确实要删除此信息吗？', {icon: 3, title:'提示'}, function(){
+                $.ajax({
+                    type:'post',
+                    url:url,
+                    dataType:'json',
+                    data:{'id':id},
+                    success:function(dd){
+                        if(dd.code==200){
+                            del_ele.parent().parent().remove();//清除当前行
+                            wk.success(dd.msg);
+                        }else {
+                            wk.success('删除失败！');
+                        }
+                    },
+                    error:function(){
+                        wk.error('服务端错误！')
+                    }
+                })
+            })
+        })
+
+        //添加分组按钮事件
+        $('.btn-group-add').click(function(){
+            var url = $(this).data('url');
+            // console.log(url);
+            $.ajax({
+                type:'get',
+                dateType:'html',
+                url:url,
+                //sync:true,
+                success:function(dd){
+                    // console.log(dd);
+                    $('#md-group-add').empty();
+                    $('#md-group-add').append($(dd));
+                    $('#md-group-add').modal('show');
+                },
+                error:function(){
+                    wk.error('服务端错误！',2);
+                }
+            })
+
+        })
+
+        //分组添加和分组展示保存
+        $('body').on('click','.btn-group-save',function(){
+            var id = $('#inp-group-id').val();
+            var name = $('#inp-group-name').val();
+            var url = $(this).data('url');
+            console.log(name);
+            if(name == 0 || name=='' )
+            {
+                wk.error('分组名称不能为空');
+                $('#inp-group-name').focus();
+                return false;
+            }
+
+            $.ajax({
+                type:'post',
+                dateType:'json',
+                url:url,
+                data:{'id':id,'name':name},
+                success:function(dd){
+                    if(dd.code=='200')
+                    {
+                        //操作成功了
+                        if(id=='')//新增行数
+                        {
+                            var  htm = '<tr id="tr-'+dd.data.id+'" \
+                                class="edit-change" \
+                                data-id="'+dd.data.id+'" \
+                                data-name="'+dd.data.name+'"  >\
+                                <td><i id="ico-'+dd.data.id+'" class="fa fa-star-o">'+dd.data.id+'</td>\
+                                <td id="inp-name-'+dd.data.id+'"  title="'+dd.data.name+'"> '+dd.data.name+' </td><td>\
+                        <button title="删除"\
+                        class="btn btn-xs dark btn-circle btn-transparent btn-outline item-delete"\
+                            data-id="'+dd.data.id+'"\
+                            data-url="/adv_group_del">\
+                                <i class="fa fa-trash"></i> 删除</button>\
+                        </td>\
+                        </tr>';
+                            $("#tb-body").prepend($(htm));//追加内容
+                            $('#inp-group-id').val('');
+                            $('#inp-group-name').val('');
+                            //$('#md-group-add').modal('hide');
+                            $('.edit-change').removeClass('tr-sel');//清空所有选中选项
+                            $('.edit-change').children().find('i').removeClass('fa-star').addClass('fa-star-o');
+                            wk.success('添加成功！');
+                        }else {
+                            //修改操作
+                            $('#inp-name-'+id).html(name);
+                            $('#tr-'+id).data('name',name);
+                            $('#inp-group-id').val('');
+                            $('#inp-group-name').val('');
+                            //$('#md-group-add').modal('hide');
+                            $('.edit-change').removeClass('tr-sel');//清空所有选中选项
+                            $('.edit-change').children().find('i').removeClass('fa-star').addClass('fa-star-o');
+                            wk.success('修改成功！');
+                        }
+                    }else{
+                        wk.msg('提交失败了！请重试',2);
+                    }
+                },
+                error:function(){
+                    wk.msg('服务器错误！',2);
+                }
+            });
+        });
+
+        //点击分组行进入修改状态
+        $('body').on('click','.edit-change',function(){
+            var id=$(this).data('id');
+            var name=$(this).data('name');
+            $('.edit-change').removeClass('tr-sel');//清空所有选中选项
+            //$('.fa-star').removeClass('fa-star').addClass('fa-star');//清空选中星星状态
+            $(this).addClass('tr-sel');//设置当前为选中
+            $('#ico-'+id).removeClass('fa-star-o');
+            $('#ico-'+id).addClass('fa-star');
+            $(this).siblings().find('i').removeClass('fa-star').addClass('fa-star-o'); //清除兄弟节点的选中状态并设置为未选中
+            $('#inp-group-id').val(id);
+            $('#inp-group-name').val(name);
+        })
+
+        //分组重置功能按钮
+        $('body').on('click','.btn-group-reset',function(){
+            $('#inp-group-id').val('');
+            $('#inp-group-name').val('');
+            $('.edit-change').removeClass('tr-sel');//清空所有选中选项
+            $('.edit-change').children().find('i').removeClass('fa-star').addClass('fa-star-o'); //清除所有选中星星
+            wk.msg('重置成功！');
+
+        })
+
+        //鼠标悬停图片放大
+       // var lay = null;
+        $("body").on('click','.get-big-img',function(){
+            var img_url=$(this).data('url');
+            var img = '<img style="width:100%;" src="'+img_url+'">'
+            lay = layer.open({
+                type: 1,
+                skin: 'layui-layer-demo', //样式类名
+                closeBtn: 1, //不显示关闭按钮
+                area: ['450px', '300px'], //宽高
+                //anim: 2,
+                shadeClose: false, //开启遮罩关闭
+                content: img
+            });
+        })
+    </script>
+    <!-- 这里是js区域结束 -->
+</body>
+
+</html>

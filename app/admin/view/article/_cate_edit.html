@@ -1,0 +1,109 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div id="md-title" class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title">栏目修改</h4>
+        </div>
+        <div id="md-body" class="modal-body">
+            <!-- BEGIN FORM-->
+            <form  action="#" id="form_article_add" class="form-horizontal" enctype="multipart/form-data" method="post">
+                <input type="hidden" name="id" value="{$cateCurr.id}">
+                <div class="form-body">
+                    <div class="alert alert-danger display-hide">
+                        <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+                    </div>
+                    <div class="alert alert-success display-hide">
+                        <button class="close" data-close="alert"></button> Your form validation is successful!
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-2">栏目名称
+                            <span class="required" aria-required="true"> * </span>
+                        </label>
+                        <div class="col-md-9">
+                            <input  type="text" id="inp-name" name="name" value="{$cateCurr.name}"  placeholder="请输入栏目名称" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">上级栏目
+                        </label>
+                        <div class="col-md-9">
+                            <select name="pid" class="form-control">
+                                <option value="0">顶级栏目</option>
+                                {volist name="cateRes" id="vc"}
+                                <option {if condition="$cateCurr['pid'] eq $vc['id']"} selected {/if}  value="{$vc.id}"> <?php if($vc['level']>0){echo str_repeat('|--',$vc['level']);} ?>{$vc.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">
+                        </label>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="text" id="inp-views"  name="views" value="{$cateCurr.views}" placeholder="点击量" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="inp-orderby" name="orderby" value="{$cateCurr.orderby}" placeholder="排序" class="form-control">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" id="inp-keywords" name="keywords" value="{$cateCurr.keywords}" placeholder="关键字" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">推荐
+                        </label>
+                        <div class="col-md-9">
+                            <div class="mt-radio-inline">
+                                <label class="mt-radio">
+                                    <input
+                                            type="checkbox"
+                                            name="is_suggest"
+                                            {if condition="$cateCurr['is_suggest'] eq 1"} checked {/if}
+                                            value="1" >推荐栏目
+                                    <span></span>
+                                </label>
+                                <label class="mt-radio">
+                                    <input
+                                            type="radio"
+                                            name="type"
+                                            {if condition="$cateCurr['type'] eq 1"} checked {/if}
+                                            value="1" >列表页
+                                    <span></span>
+                                </label>
+                                <label class="mt-radio">
+                                    <input
+                                            type="radio"
+                                            name="type"
+                                            {if condition="$cateCurr['type'] eq 2"} checked {/if}
+                                            value="2" >单页面
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-2">内容
+                        </label>
+                        <div   class="col-md-9">
+                            <div id="test-editor">
+                                <textarea id="inp-content" style="display:none;">{$cateCurr.ora_content}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-offset-4 col-md-8">
+                                <button type="button"  class="btn green btn-send-form">提交</button>
+                                <button type="button"  class="btn btn-default" data-dismiss="modal" aria-hidden="true">取消</button>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+            <!-- END FORM-->
+        </div>
+    </div>
+</div>

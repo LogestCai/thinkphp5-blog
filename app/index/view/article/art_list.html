@@ -1,0 +1,262 @@
+{include file="public/headercss" /}
+<link href="__PAGE__/pages/css/swiper.min.css" rel="stylesheet" type="text/css" />
+<script src="__PAGE__/pages/scripts/swiper.min.js" type="text/javascript"></script>
+<style>
+    .footer-load-more{
+        width:100%;
+        margin:0 15px 15px 15px;
+        background: transparent;
+        text-align: center;
+    }
+
+</style>
+</head>
+<!-- END HEAD -->
+
+<body class="page-container-bg-solid page-boxed page-header-menu-fixed">
+<!-- 头部区域开始 -->
+{include file="public/header" /}
+<!-- 头部区域结束 -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <!-- BEGIN CONTENT BODY -->
+        <!-- BEGIN PAGE CONTENT BODY -->
+        <div class="page-content">
+            <div class="container">
+                <!-- 导航条开始 -->
+                {include file="public/bread" /}
+                <!-- 导航条结束 -->
+                <!-- BEGIN PAGE CONTENT INNER -->
+                <div class="page-content-inner">
+                    <div class="blog-page blog-content-1">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        {volist name="articles" id="vo"}
+                                        <div class="blog-post-lg bordered blog-container">
+                                            <div class="blog-post-content">
+                                                <h2 class="blog-title blog-post-title">
+                                                    <a href="/articles/{$vo.pub_time|strtotime|date='Y',###}/{$vo.pub_time|strtotime|date='m',###}/{$vo.pub_time|strtotime|date='d',###}/art-{$vo.id}.shtml">{$vo.title}</a>
+                                                </h2>
+                                                <p class="blog-post-desc"> {$vo.content|F_exceptHtmlTags=100}</p>
+                                                <div class="blog-post-foot">
+                                                    <ul class="blog-post-tags ">
+                                                        <li class="uppercase">
+                                                            <a style="background-color:#e7505a;color: #c2ffe3" class="btn  btn-success red" href="/articles/{$vo.pub_time|strtotime|date='Y',###}/{$vo.pub_time|strtotime|date='m',###}/{$vo.pub_time|strtotime|date='d',###}/art-{$vo.id}.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>
+                                                        </li>
+                                                        <?php
+                                                        if($vo['tags']!=='')
+                                                        {
+                                                           $rest = explode(',',$vo['tags']);
+                                                           foreach($rest as $vv){
+                                                             echo '<li class="uppercase hidden-xs">
+                                                        <a class="btn  btn-circle btn-transparent" href="javascript:;">'.$vv.'</a></li>';}
+                                                        }?>
+
+                                                    </ul>
+                                                    <div class="blog-post-meta hidden-xs">
+                                                        <i class="icon-calendar font-blue"></i>
+                                                        <a href="javascript:;">{$vo.pub_time}</a>
+                                                    </div>
+                                                    <!--div class="blog-post-meta">
+                                                        <i class="icon-bubble font-blue"></i>
+                                                        <a href="javascript:;">14 Comments</a>
+                                                    </div-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {/volist}
+                                        <!-- 底部加载更改多开始 -->
+                                        {if condition="count($articles)>=$config['listLstNumber']"}
+                                        <div class="footer-load-more">
+                                            <button
+                                                    data-page="2"
+                                                    class="btn red btn-circle btn-load-more">
+                                                加载更多...
+                                            </button>
+                                        </div>
+                                        {else /}
+                                        <div class="footer-load-more">
+                                            <button
+                                                    data-page="2"
+                                                    disabled
+                                                    class="btn btn-default btn-circle btn-load-more">
+                                                没有更多数据了...
+                                            </button>
+                                        </div>
+                                        {/if}
+                                        <!-- 底部加载更改多技术 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 blog-page blog-content-2">
+                                <div class="blog-single-sidebar bordered blog-container ">
+                                    <!--全文搜索开始 -->
+                                    {include file="public/search" /}
+                                    <!--全文搜索结束 -->
+                                    <!-- 最新文章开始 -->
+                                    {include file="public/sidebar_recent" /}
+                                    <!-- 最新文章结束 -->
+                                    <!-- 博客标签TAgs开始 -->
+                                    {include file="public/sidebar_tags" /}
+                                    <!-- 博客标签TAgs结束 -->
+                                    <!-- 热门文章开始 -->
+                                    {include file="public/sidebar_hot" /}
+                                    <!-- 热门文章结束 -->
+                                    <!-- 图片文章开始 -->
+                                    {include file="public/sidebar_img" /}
+                                    <!-- 图片文章结束 -->
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END PAGE CONTENT INNER -->
+            </div>
+        </div>
+        <!-- END PAGE CONTENT BODY -->
+        <!-- END CONTENT BODY -->
+    </div>
+    <!-- END CONTENT -->
+</div>
+<!-- END CONTAINER -->
+<!-- FOOTER区域开始 -->
+{include file="public/footer" /}
+<!-- FOOTER区域结束  -->
+<!-- END THEME LAYOUT SCRIPTS -->
+
+<!-- 手写js区域开始 -->
+<script>
+    var perNumber = "<?php echo $config['indexLstNumber'];?>";
+    //加载更多选项设置
+    $('.btn-load-more').click(function(){
+        var page = $(this).data('page');
+        $(this).empty().html('加载中...');
+        var ele_btn = $(this);
+        $.ajax({
+            type:'post',
+            dateType:'json',
+            data:{'pages':page},
+            url:'/',
+            success:function(dd){
+                if(dd.code==200)
+                {
+                    var htm = createHtml(dd.data);
+                    console.log(htm);
+                    ele_btn.parent().before(htm);
+                    if(dd.data.length<perNumber)
+                    {
+                        ele_btn.attr('disabled',true);
+                        ele_btn.removeClass('red');
+                        ele_btn.addClass('default');
+                        ele_btn.html('我是有底线的...');
+                    }
+                    else
+                    {
+                        ele_btn.data('page',page+1);
+                        ele_btn.html('加载更多...');
+                    }
+                }
+            },
+            error:function(){
+                wk.error('我没想到的错误出现了！真抱歉！');
+            }
+        });
+    });
+
+    //生成html
+    function createHtml(data)
+    {
+        var htm = '';
+        if(data.length>0){
+            for(var i=0;i<data.length;i++)
+            {
+                htm+= '<div class="blog-post-lg bordered blog-container">\
+                    <div class="blog-post-content">\
+                <h2 class="blog-title blog-post-title">\
+                <a href="/articles/'+data[i].for_year+'/'+data[i].for_month+'/'+data[i].for_day+'/art-'+data[i].id+'.shtml">'+data[i].title+'</a>\
+            </h2>\
+            <p class="blog-post-desc"> '+subMbStrWithoutHtmlTags(data[i].content)+'</p>\
+            <div class="blog-post-foot">\
+                <ul class="blog-post-tags">\
+                <li class="uppercase">\
+                 <a style="background-color:#e7505a;color: #c2ffe3"\
+        class="btn  btn-success red" href="/articles/'+data[i].for_year+'/'+data[i].for_month+'/'+data[i].for_day+'/art-'+data[i].id+'.shtml">阅读全文<i class="fa fa-angle-double-down"></i></a>\
+                </li>';
+                var tags = data[i].tags;
+                var tmp_li = '';
+                if((tags!=undefined)&&(tags!=''))
+                {
+                    tags = tags.split(',');
+
+
+                    for(var j=0;j<tags.length;j++)
+                    {
+                        tmp_li +='<li class="uppercase"><a class="btn  btn-circle btn-transparent" href="javascript:;">'+tags[j]+'</a></li>';
+
+                    }
+                }
+                htm = htm+tmp_li;
+                htm +='</ul>\
+                <div class="blog-post-meta">\
+                <i class="icon-calendar font-blue"></i>\
+                <a href="javascript:;">'+data[i].pub_time+'</a>\
+            </div>\
+            <!--div class="blog-post-meta">\
+                <i class="icon-bubble font-blue"></i>\
+                <a href="javascript:;">14 Comments</a>\
+            </div-->\
+            </div>\
+            </div>\
+            </div>';
+            }
+        }
+        return htm;
+    };
+    //清除html标签 并截取指定长度字符串
+    function subMbStrWithoutHtmlTags(str,length=100)
+    {
+        var temp = str.replace(/<\/?.+?>/g, "");
+        var result = temp.replace(/ /g, "");//result为得到后的内容
+        return cutStr(result,length);
+    }
+
+    /**
+     * js截取字符串，中英文都能用
+     * @param str：需要截取的字符串
+     * @param len: 需要截取的长度
+     */
+    function cutStr(str, len) {
+        var str_length = 0;
+        var str_len = 0;
+        str_cut = new String();
+        str_len = str.length;
+        for (var i = 0; i < str_len; i++) {
+            a = str.charAt(i);
+            str_length++;
+            if (escape(a).length > 4) {
+                //中文字符的长度经编码之后大于4
+                str_length++;
+            }
+            str_cut = str_cut.concat(a);
+            if (str_length >= len) {
+                str_cut = str_cut.concat("...");
+                return str_cut;
+            }
+        }
+        //如果给定字符串小于指定长度，则返回源字符串；
+        if (str_length < len) {
+            return str;
+        }
+    }
+</script>
+<!-- 手写js区域结束 -->
+
+</body>
+
+</html>

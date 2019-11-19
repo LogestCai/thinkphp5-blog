@@ -1,0 +1,10 @@
+<div class="blog-single-sidebar-tags">
+    <h3 class="blog-sidebar-title uppercase">Tags</h3>
+    <ul class="blog-post-tags">
+        {volist name="tags" id="vo"}
+        <li class="uppercase">
+            <a href="/search/tag/{$vo.tag|urlencode}">{$vo.tag}</a>
+        </li>
+        {/volist}
+    </ul>
+</div>

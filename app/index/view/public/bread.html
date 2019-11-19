@@ -1,0 +1,17 @@
+<!-- BEGIN PAGE BREADCRUMBS -->
+<ul class="page-breadcrumb breadcrumb">
+    <li>
+        <a href="/">首页</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    {volist name="bread" id="vo"}
+    <li>
+        <a href="/{if condition="$vo['type'] == 1"}artlist{elseif condition="$vo['type'] eq 2"/}artsingle{else /}img{/if}-{$vo.id}.shtml">{$vo.name}</a>
+        <i class="fa fa-circle"></i>
+    </li>
+    {/volist}
+    <li>
+        <span>当前页</span>
+    </li>
+</ul>
+<!-- END PAGE BREADCRUMBS -->
