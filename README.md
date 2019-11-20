@@ -38,14 +38,13 @@
 
 ### THANKS
 
-- bootstrap
-- metronic
-- jquery
-- layui
+- [bootstrap](https://www.bootcss.com)
+- [jquery](https://jquery.com)
+- [layui](https://www.layui.com)
 
-### DONATE
+### DONATE ME
 
-- 如果你喜欢此项目，也可以请作者喝茶。
+> 如果你喜欢此项目，可以请作者喝茶。
 
 ![005](https://raw.githubusercontent.com/LogestCai/thinkphp5-blog/master/images/005.png)
 
