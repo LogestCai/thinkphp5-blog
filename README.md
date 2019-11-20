@@ -36,13 +36,17 @@
   
   
 
-### 特别感谢
+### THANKS
 
 - bootstrap
 - metronic
 - jquery
 - layui
 
+### DONATE
 
+- 如果你喜欢此项目，也可以请作者喝茶。
+
+![005](https://raw.githubusercontent.com/LogestCai/thinkphp5-blog/master/images/005.png)
 
 
